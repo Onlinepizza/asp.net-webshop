@@ -12,6 +12,10 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.CustomerID)
+        </th>
+
+        <th>
             @Html.DisplayNameFor(model => model.FName)
         </th>
         <th>
@@ -40,6 +44,10 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomerID)
+        </td>
+
         <td>
             @Html.DisplayFor(modelItem => item.FName)
         </td>

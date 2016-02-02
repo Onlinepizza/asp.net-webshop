@@ -1,0 +1,42 @@
+﻿@model WebApplication3.Models.Orderline
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Orderline</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.OrderID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.OrderID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Antal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Antal)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OrderlineID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
