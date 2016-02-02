@@ -12,7 +12,7 @@ namespace WebApplication3.Controllers
 {
     public class OrdersController : Controller
     {
-        private OrderDBContext db = new OrderDBContext();
+        private TheDatabase db = new TheDatabase();
 
         // GET: Orders
         public ActionResult Index()

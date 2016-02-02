@@ -12,7 +12,7 @@ namespace WebApplication3.Controllers
 {
     public class CustomersController : Controller
     {
-        private CostumerDBContext db = new CostumerDBContext();
+        private TheDatabase db = new TheDatabase();
 
         // GET: Customers
         public ActionResult Index()

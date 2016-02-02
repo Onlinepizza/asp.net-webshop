@@ -23,9 +23,4 @@ namespace WebApplication3.Models
 
 
     }
-
-    public class CostumerDBContext : DbContext
-    {
-        public DbSet<Customer> Customers { get; set; }
-    }
 }
