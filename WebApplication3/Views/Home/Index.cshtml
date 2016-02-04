@@ -3,5 +3,21 @@
     ViewBag.Title = "Index";
 }
 
-    <h2><b>Detta är kul.</b></h2>
+    <h2><b>En jättebra webshop!</b></h2>
+    <main>
+        <center>
+            Man kan handla olika saker som ovanligt folk inte behöver! Köp allt, köp inget, du bestämmer!
+
+            <br />
+            @Html.ActionLink("Start shopping!", "Shopping", "Products",
+                new { area = "" },
+                new
+                {
+                    @class = "t-button",
+                    @style = "width:240px; color:blue; text-align:center"
+                })
+        </center>
+    
+    </main>
+    
 

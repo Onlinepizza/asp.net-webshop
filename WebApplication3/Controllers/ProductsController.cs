@@ -15,13 +15,76 @@ namespace WebApplication3.Controllers
         private TheDatabase db = new TheDatabase();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(string description, string searchString)
         {
-            return View(db.Products.ToList());
+            var descList = new List<string>();
+            var descQry = from p in db.Products
+                          orderby p.Descr
+                          select p.Descr;
+
+            descList.AddRange(descQry.Distinct());
+            ViewBag.description = new SelectList(descList);
+
+            var products = from l in db.Products
+                           select l;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.ArtName.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                products = products.Where(x => x.Descr.Contains(description));
+            }
+            return View(products);
+            //return View(db.Products.ToList());
+        }
+
+        // GET: Shopping
+        public ActionResult Shopping(string description, string searchString)
+        {
+            var descList = new List<string>();
+            var descQry = from p in db.Products
+                          orderby p.Descr
+                          select p.Descr;
+
+            descList.AddRange(descQry.Distinct());
+            ViewBag.description = new SelectList(descList);
+
+            var products = from l in db.Products
+                           select l;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(s => s.ArtName.Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(description))
+            {
+                products = products.Where(x => x.Descr.Contains(description));
+            }
+            return View(products);
+            //return View(db.Products.ToList());
         }
 
         // GET: Products/Details/5
         public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = db.Products.Find(id);
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+            return View(product);
+        }
+
+        // GET: Products/Details/5
+        public ActionResult CustomerDetails(int? id)
         {
             if (id == null)
             {
@@ -123,5 +186,11 @@ namespace WebApplication3.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+
+
+
+
     }
 }

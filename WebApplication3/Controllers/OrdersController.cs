@@ -17,6 +17,7 @@ namespace WebApplication3.Controllers
         // GET: Orders
         public ActionResult Index()
         {
+            
             return View(db.Orders.ToList());
         }
 
