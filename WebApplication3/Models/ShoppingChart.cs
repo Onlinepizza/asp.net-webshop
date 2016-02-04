@@ -5,21 +5,18 @@ namespace WebApplication3.Models
 {
     public class ShoppingChart
     {
-        private ShoppingChart shoppingChart;
+        private static ShoppingChart shoppingChart = new ShoppingChart();
 
         private TheDatabase db = new TheDatabase();
-        private List<ChartObject> theChart;
+        private static List<ChartObject> theChart = new List<ChartObject>();
         private Product product;
 
 
         private ShoppingChart()
         {
-            ShoppingChart shoppingChart = new ShoppingChart();
-
-            shoppingChart.theChart = new List<ChartObject>();
         }
 
-        public ShoppingChart getInstance()
+        public static ShoppingChart getInstance()
         {
             return shoppingChart;
 
