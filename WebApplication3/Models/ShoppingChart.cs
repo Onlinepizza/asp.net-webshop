@@ -1,3 +1,6 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+
 namespace WebApplication3.Models
 {
     public class ShoppingChart
@@ -95,7 +98,7 @@ namespace WebApplication3.Models
             return theChart.ElementAt(index).Count;
         }
 
-        private class ChartObject
+        public class ChartObject
         {
             public string ProdName { get; set; }
 
