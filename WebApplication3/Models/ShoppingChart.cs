@@ -12,6 +12,8 @@ namespace WebApplication3.Models
         private ShoppingChart()
         {
             ShoppingChart shoppingChart = new ShoppingChart();
+
+            shoppingChart.theChart = new List<ChartObject>();
         }
 
         public ShoppingChart getInstance()
@@ -73,28 +75,24 @@ namespace WebApplication3.Models
             return isInChart;
         }
 
-        List<ChartObject> getChartObjects()
+        public string getChartObjectProdName(int index)
         {
-            return theChart;
+            return theChart.ElementAt(index).ProdName;
         }
 
-        public string getProdName(ChartObject cobject){
-            return cobject.ProdName;
+        public double getChartObjectPrice(int index)
+        {
+            return theChart.ElementAt(index).Price;
         }
 
-        public double getPrice(ChartObject cobject)
+        public int getChartObjectId(int index)
         {
-            return cobject.Price;
+            return theChart.ElementAt(index).Id;
         }
 
-        public int getId(ChartObject cobject)
+        public int getChartObjectCount(int index)
         {
-            return cobject.Id;
-        }
-
-        public int getCount(ChartObject cobject)
-        {
-            return cobject.Count;
+            return theChart.ElementAt(index).Count;
         }
 
         private class ChartObject
