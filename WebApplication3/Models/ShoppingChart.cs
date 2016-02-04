@@ -1,8 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
 namespace WebApplication3.Models
 {
     public class ShoppingChart
@@ -17,9 +12,11 @@ namespace WebApplication3.Models
         private ShoppingChart()
         {
             ShoppingChart shoppingChart = new ShoppingChart();
+
+            shoppingChart.theChart = new List<ChartObject>();
         }
 
-        ShoppingChart getInstance()
+        public ShoppingChart getInstance()
         {
             return shoppingChart;
 
@@ -40,10 +37,10 @@ namespace WebApplication3.Models
                 chartObject.Count = count;
                 theChart.Add(chartObject);
             }
-
+            
         }
 
-        public void DelProductFromChart(int? id)
+        public void  DelProductFromChart(int? id)
         {
             if (id != null)
             {
@@ -78,32 +75,27 @@ namespace WebApplication3.Models
             return isInChart;
         }
 
-        List<ChartObject> getChartObjects()
+        public string getChartObjectProdName(int index)
         {
-            return theChart;
+            return theChart.ElementAt(index).ProdName;
         }
 
-        public string getProdName(ChartObject cobject)
+        public double getChartObjectPrice(int index)
         {
-            return cobject.ProdName;
+            return theChart.ElementAt(index).Price;
         }
 
-        public double getPrice(ChartObject cobject)
+        public int getChartObjectId(int index)
         {
-            return cobject.Price;
+            return theChart.ElementAt(index).Id;
         }
 
-        public int getId(ChartObject cobject)
+        public int getChartObjectCount(int index)
         {
-            return cobject.Id;
+            return theChart.ElementAt(index).Count;
         }
 
-        public int getCount(ChartObject cobject)
-        {
-            return cobject.Count;
-        }
-
-        public class ChartObject
+        private class ChartObject
         {
             public string ProdName { get; set; }
 
@@ -112,6 +104,8 @@ namespace WebApplication3.Models
             public int Id { get; set; }
 
             public int Count { get; set; }
+            
         }
-    }
+
+   }
 }
