@@ -75,9 +75,9 @@ namespace WebApplication3.Models
             return isInChart;
         }
 
-        public string getChartObjectProdName(int index)
+        public ChartObject getChartObjectProdName()
         {
-            return theChart.ElementAt(index).ProdName;
+            return theChart.ElementAt(0);
         }
 
         public double getChartObjectPrice(int index)

@@ -1,0 +1,48 @@
+﻿@model WebApplication3.Models.ShoppingChart.ChartObject
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>The shopping chart ... to be continued</h2>
+
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayFor(model => model.ProdName)
+        </th>
+        <th></th>
+    </tr>
+
+    @*@foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductID)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.ArtName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descr)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.InStock)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
+            </td>
+        </tr>
+    }*@
+
+</table>
+
+
