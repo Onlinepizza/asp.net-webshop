@@ -14,7 +14,7 @@ namespace WebApplication3.Models
             ShoppingChart shoppingChart = new ShoppingChart();
         }
 
-        ShoppingChart getInstance()
+        public ShoppingChart getInstance()
         {
             return shoppingChart;
 
