@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,12 +18,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Lab1 Webshop", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Lab1 Webshop Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Products", "Index", "Products", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Customers", "Index", "Customers", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Orders", "Index", "Orders", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Orderlines", "Index", "Orderlines", new { area = "" }, new { @class = "navbar-brand" })
-           
+ 
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -31,6 +32,43 @@
         </div>
 
     </div>
+
+
+
+
+    <div class="navbar navbar-inverse navbar-fixed-bottom">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                
+               
+                @using (Html.BeginForm())
+                {
+                    
+                    <p>
+                        Shopping Chart: DDDDDRRRROOOOOPPPDDDDOOOOOOWWWWNNNNBBBBOOOOXXXX!!!!                    
+                    </p>
+                }
+
+
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav"></ul>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
 
     <div class="container body-content">
         @RenderBody()
