@@ -89,25 +89,6 @@ namespace WebApplication3.Models
             return isInChart;
         }
 
-        public ChartObject getChartObjectProdName()
-        {
-            return theChart.ElementAt(0);
-        }
-
-        public double getChartObjectPrice(int index)
-        {
-            return theChart.ElementAt(index).Price;
-        }
-
-        public int getChartObjectId(int index)
-        {
-            return theChart.ElementAt(index).Id;
-        }
-
-        public int getChartObjectCount(int index)
-        {
-            return theChart.ElementAt(index).Count;
-        }
 
         public IEnumerator<ChartObject> GetEnumerator()
         {
