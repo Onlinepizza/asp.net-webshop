@@ -1,9 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WebApplication3.Models
 {
-    public class ShoppingChart
+    public class ChartObject
+    {
+        public string ProdName { get; set; }
+
+        public double Price { get; set; }
+
+        public int Id { get; set; }
+
+        public int Count { get; set; }
+
+    }
+
+    public class ShoppingChart: IEnumerable<ChartObject>
     {
         private static ShoppingChart shoppingChart = new ShoppingChart();
 
@@ -14,6 +27,7 @@ namespace WebApplication3.Models
 
         private ShoppingChart()
         {
+
         }
 
         public static ShoppingChart getInstance()
@@ -95,16 +109,14 @@ namespace WebApplication3.Models
             return theChart.ElementAt(index).Count;
         }
 
-        public class ChartObject
+        public IEnumerator<ChartObject> GetEnumerator()
         {
-            public string ProdName { get; set; }
+            return theChart.GetEnumerator();
+        }
 
-            public double Price { get; set; }
-
-            public int Id { get; set; }
-
-            public int Count { get; set; }
-            
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return theChart.GetEnumerator();
         }
 
    }

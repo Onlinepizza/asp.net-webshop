@@ -17,7 +17,7 @@ namespace WebApplication3.Controllers
             chart = ShoppingChart.getInstance();
             chart.AddProductToChart(1, 5);
 
-            return View(chart.getChartObjectProdName());
+            return View(chart);
         }
     }
 }
