@@ -137,6 +137,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\WebApplication3.Models.TheDatabase.mdf" />
+    <Content Include="App_Data\WebApplication3.Models.TheDatabase_log.ldf">
+      <DependentUpon>WebApplication3.Models.TheDatabase.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -214,6 +218,7 @@
     <Content Include="Views\Products\Shopping.cshtml" />
     <Content Include="Views\Products\CustomerDetails.cshtml" />
     <Content Include="Views\ShoppingChart\Index.cshtml" />
+    <Content Include="Views\Orders\OrderSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -221,9 +226,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>

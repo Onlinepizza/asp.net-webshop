@@ -46,13 +46,37 @@ namespace WebApplication3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Order order = db.Orders.Find(id);
+            //Order order = db.Orders.Find(id);
             
-            var lines = db.Orderlines.Find(id);
-            if (order == null)
+            var lines = from l in db.Orderlines
+                        select l;
+
+
+            lines = lines.Where(s => s.OrderID == id);
+
+
+            return View(lines);
+        }
+
+        // GET: Orders/Details/5
+        public ActionResult OrderSearch(string searchString)
+        {
+            int id;
+            Int32.TryParse(searchString, out id);
+
+            if (id == null)
             {
-                return HttpNotFound();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //Order order = db.Orders.Find(id);
+
+            var lines = from l in db.Orderlines
+                        select l;
+
+
+            lines = lines.Where(s => s.OrderID == id);
+
+
             return View(lines);
         }
 

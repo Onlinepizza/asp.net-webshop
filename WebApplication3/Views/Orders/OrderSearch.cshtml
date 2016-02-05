@@ -1,14 +1,12 @@
 ﻿@model IEnumerable<WebApplication3.Models.Orderline>
 
 @{
-    ViewBag.Title = "OrderDetailsLine";
+    ViewBag.Title = "OrderSearch";
 }
 
-<h2>Index</h2>
+<h2>Your order:</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
 
@@ -19,7 +17,7 @@
         <th>
             @Html.DisplayNameFor(model => model.ArtID)
         </th>
-       
+
         <th>
             @Html.DisplayNameFor(model => model.Antal)
         </th>
@@ -37,17 +35,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ArtID)
             </td>
-                       
+
             <td>
                 @Html.DisplayFor(modelItem => item.Antal)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.OrderlineID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.OrderlineID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.OrderlineID })
-            </td>
         </tr>
-    
+
     }
-    @Html.ActionLink("Back to List", "Index")
+  
 </table>

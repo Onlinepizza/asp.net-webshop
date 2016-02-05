@@ -48,6 +48,8 @@ namespace WebApplication3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CustomerID,FName,LName,Adress,PostNr,City,Email,Phone,Comment")] Customer customer)
         {
+
+
             if (ModelState.IsValid)
             {
                 db.Customers.Add(customer);

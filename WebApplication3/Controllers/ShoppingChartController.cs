@@ -15,7 +15,7 @@ namespace WebApplication3.Controllers
         public ActionResult Index()
         {
             chart = ShoppingChart.getInstance();
-            chart.AddProductToChart(1, 5);
+            chart.AddProductToChart(4, 5);
 
             return View(chart);
         }
