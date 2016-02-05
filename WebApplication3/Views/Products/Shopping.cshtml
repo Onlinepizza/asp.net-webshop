@@ -19,6 +19,7 @@
 </p>
 
 <table class="table">
+
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ArtName)
@@ -49,11 +50,17 @@
         <td>
             @Html.DisplayFor(modelItem => item.InStock)
         </td>
+        
+
+@using (Html.BeginForm())
+{
         <td>
-            Quantity: 
+            Quantity:
             @Html.TextBox("Quantity") |
-            @Html.ActionLink("Buy", "Buy", new { id=item.ProductID }) |
+            @Html.ActionLink("Buy", "Buy", new { id = item.ProductID, Quantity = 5})
+            <input type="submit" id="Quantity"  value="text" />
         </td>
+}
     </tr>
 }
 

@@ -187,6 +187,14 @@ namespace WebApplication3.Controllers
             base.Dispose(disposing);
         }
 
+        public ActionResult Buy(int? id, int? Quantity)
+        {
+            if(id != null && Quantity != null)
+                ShoppingChart.getInstance().AddProductToChart(id, Quantity);
+
+            return RedirectToAction("Shopping", "Products");
+        }
+
 
 
 

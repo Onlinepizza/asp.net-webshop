@@ -36,10 +36,10 @@ namespace WebApplication3.Models
 
         }
 
-        public void AddProductToChart(int? id, int count)
+        public void AddProductToChart(int? id, int? count)
         {
 
-            if (id != null)
+            if (id != null && count != null)
             {
                 ChartObject chartObject = new ChartObject();
 
@@ -48,7 +48,7 @@ namespace WebApplication3.Models
                 chartObject.Id = (int)id;
                 chartObject.ProdName = product.ArtName;
                 chartObject.Price = product.Price;
-                chartObject.Count = count;
+                chartObject.Count = (int)count;
                 theChart.Add(chartObject);
             }
             
