@@ -166,6 +166,7 @@
     <Compile Include="Controllers\OrderlinesController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
+    <Compile Include="Controllers\ShoppingChartController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -212,7 +213,7 @@
     <Content Include="Views\Orderlines\Index.cshtml" />
     <Content Include="Views\Products\Shopping.cshtml" />
     <Content Include="Views\Products\CustomerDetails.cshtml" />
-    <Content Include="Views\Orders\OrderDetailsLine.cshtml" />
+    <Content Include="Views\ShoppingChart\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -222,6 +223,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

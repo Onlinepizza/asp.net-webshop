@@ -1,25 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WebApplication3.Models
 {
-    public class ShoppingChart
+    public class ChartObject
     {
-        private ShoppingChart shoppingChart;
+        public string ProdName { get; set; }
+
+        public double Price { get; set; }
+
+        public int Id { get; set; }
+
+        public int Count { get; set; }
+
+    }
+
+    public class ShoppingChart: IEnumerable<ChartObject>
+    {
+        private static ShoppingChart shoppingChart = new ShoppingChart();
 
         private TheDatabase db = new TheDatabase();
-        private List<ChartObject> theChart;
+        private static List<ChartObject> theChart = new List<ChartObject>();
         private Product product;
 
 
         private ShoppingChart()
         {
-            ShoppingChart shoppingChart = new ShoppingChart();
 
-            shoppingChart.theChart = new List<ChartObject>();
         }
 
-        public ShoppingChart getInstance()
+        public static ShoppingChart getInstance()
         {
             return shoppingChart;
 
@@ -78,9 +89,9 @@ namespace WebApplication3.Models
             return isInChart;
         }
 
-        public string getChartObjectProdName(int index)
+        public ChartObject getChartObjectProdName()
         {
-            return theChart.ElementAt(index).ProdName;
+            return theChart.ElementAt(0);
         }
 
         public double getChartObjectPrice(int index)
@@ -98,16 +109,14 @@ namespace WebApplication3.Models
             return theChart.ElementAt(index).Count;
         }
 
-        public class ChartObject
+        public IEnumerator<ChartObject> GetEnumerator()
         {
-            public string ProdName { get; set; }
+            return theChart.GetEnumerator();
+        }
 
-            public double Price { get; set; }
-
-            public int Id { get; set; }
-
-            public int Count { get; set; }
-            
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return theChart.GetEnumerator();
         }
 
    }
