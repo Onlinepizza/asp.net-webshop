@@ -10,8 +10,8 @@
     @using (Html.BeginForm())
     {
     <p>
-        Genre: @Html.DropDownList("Description", "All")
-        Title: @Html.TextBox("SearchString") <br />
+        Description: @Html.DropDownList("Description", "All")
+        Article Name: @Html.TextBox("SearchString") <br />
         <input type="submit" value="Filter" />
     </p>
     }
@@ -38,7 +38,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ArtName)
+            @Html.ActionLink(item.ArtName, "CustomerDetails", new { id = item.ProductID })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descr)
@@ -50,10 +50,9 @@
             @Html.DisplayFor(modelItem => item.InStock)
         </td>
         <td>
-            
-            @Html.TextBox("Antal") |
+            Quantity: 
+            @Html.TextBox("Quantity") |
             @Html.ActionLink("Buy", "Buy", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "CustomerDetails", new { id=item.ProductID }) |
         </td>
     </tr>
 }

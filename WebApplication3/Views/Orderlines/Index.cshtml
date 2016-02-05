@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplication3.Models.Orderline>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Orderlines on current order";
 }
 
 <h2>Index</h2>
@@ -12,10 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ArtID)
+            @Html.DisplayNameFor(model => model.OrderID)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.OrderID)
+            @Html.DisplayNameFor(model => model.ArtID)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Antal)
@@ -26,17 +26,17 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.ArtID)
+            @Html.DisplayFor(modelItem => item.OrderID)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OrderID)
+            @Html.DisplayFor(modelItem => item.ArtID)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Antal)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.OrderlineID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderlineID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.OrderlineID }) |            
             @Html.ActionLink("Delete", "Delete", new { id=item.OrderlineID })
         </td>
     </tr>

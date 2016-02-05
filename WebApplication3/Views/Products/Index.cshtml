@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplication3.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Products in the system";
 }
 
 <h2>Index</h2>
@@ -14,8 +14,8 @@
     @using (Html.BeginForm())
     {
     <p>
-        Genre: @Html.DropDownList("Description", "All")
-        Title: @Html.TextBox("SearchString") <br />
+        Description: @Html.DropDownList("Description", "All")
+        Article Name: @Html.TextBox("SearchString") <br />
         <input type="submit" value="Filter" />
     </p>
     }
@@ -56,8 +56,8 @@
             @Html.DisplayFor(modelItem => item.ProductID)
         </td>
 
-        <td>
-            @Html.DisplayFor(modelItem => item.ArtName)
+        <td>            
+            @Html.ActionLink(item.ArtName, "Details", new { id = item.ProductID })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Descr)
@@ -70,7 +70,6 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ProductID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProductID }) |
             @Html.ActionLink("Delete", "Delete", new { id=item.ProductID })
         </td>
     </tr>

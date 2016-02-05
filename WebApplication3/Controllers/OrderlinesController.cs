@@ -15,9 +15,20 @@ namespace WebApplication3.Controllers
         private TheDatabase db = new TheDatabase();
 
         // GET: Orderlines
-        public ActionResult Index()
+        public ActionResult Index(int? id)
+
         {
-            return View(db.Orderlines.ToList());
+            if (id == null)
+            {
+                return View(db.Orderlines.ToList());
+            }
+                  
+                var lines = from l in db.Orderlines
+                            select l;
+                
+                lines = lines.Where(x => x.OrderID == id);
+                return View(lines);           
+
         }
 
         // GET: Orderlines/Details/5

@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<WebApplication3.Models.Order>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Orders in the system";
 }
 
 <h2>Index</h2>
@@ -20,6 +20,7 @@
             @Html.DisplayNameFor(model => model.CustomerID)
         </th>
 
+
         <th></th>
     </tr>
 
@@ -27,20 +28,22 @@
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.OrderID)
-            
         </td>
 
         <td>
-            
             @Html.DisplayFor(modelItem => item.CustomerID)
         </td>
 
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.OrderID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.OrderID }) |
+
+
+            @Html.ActionLink("Details", "OrderDetailsLine", new { id=item.OrderID }) |
+
+            
             @Html.ActionLink("Delete", "Delete", new { id=item.OrderID })
         </td>
     </tr>
 }
-
+                                                                
 </table>

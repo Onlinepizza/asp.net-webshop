@@ -17,13 +17,15 @@ namespace WebApplication3.Controllers
         // GET: Orders
         public ActionResult Index()
         {
-            
+
             return View(db.Orders.ToList());
         }
 
         // GET: Orders/Details/5
         public ActionResult Details(int? id)
         {
+
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -34,6 +36,24 @@ namespace WebApplication3.Controllers
                 return HttpNotFound();
             }
             return View(order);
+        }
+
+        // GET: Orders/Details/5
+        public ActionResult OrderDetailsLine(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Order order = db.Orders.Find(id);
+            
+            var lines = db.Orderlines.Find(id);
+            if (order == null)
+            {
+                return HttpNotFound();
+            }
+            return View(lines);
         }
 
         // GET: Orders/Create
