@@ -14,6 +14,7 @@ namespace WebApplication3.Models
 
         public int Count { get; set; }
 
+        public double ObjectTotal { get; set; }
     }
 
     public class ShoppingChart: IEnumerable<ChartObject>
@@ -24,10 +25,12 @@ namespace WebApplication3.Models
         private static List<ChartObject> theChart = new List<ChartObject>();
         private Product product;
 
+        public double total { get; set; }
+
 
         private ShoppingChart()
         {
-
+            this.total = 0;
         }
 
         public static ShoppingChart getInstance()
@@ -49,7 +52,9 @@ namespace WebApplication3.Models
                 chartObject.ProdName = product.ArtName;
                 chartObject.Price = product.Price;
                 chartObject.Count = (int)count;
+                chartObject.ObjectTotal = chartObject.Price * chartObject.Count;
                 theChart.Add(chartObject);
+                this.total += chartObject.ObjectTotal;
             }
             
         }
@@ -63,6 +68,7 @@ namespace WebApplication3.Models
                 {
                     if (prod.Id == id)
                     {
+                        this.total -= prod.ObjectTotal;
                         theChart.Remove(prod);
                     }
                 }

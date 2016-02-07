@@ -14,7 +14,6 @@ namespace WebApplication3.Controllers
         // GET: ShoppingChart
         public ActionResult Index()
         {
-
             return View(ShoppingChart.getInstance());
         }
     }
