@@ -50,18 +50,52 @@
         <td>
             @Html.DisplayFor(modelItem => item.InStock)
         </td>
+
+
         
 
 @using (Html.BeginForm())
 {
+
+    int min = 1;
+    int max = 100;
+    var id_t = "Quantity" + item.ProductID;
+    var attrs_t = new { type="number", id=@id_t, name=@id_t, value ="1", min =@min, max=@max};
+    IDictionary<string, object> htmlAttributes_t = HtmlHelper.AnonymousObjectToHtmlAttributes(attrs_t);
+
+
+    string buybutton = "<input type=\"button\" value=\"Buy\" onclick=\"changeUrl('" 
+        + Url.Action("Buy", "Products") + "/" + item.ProductID + "?Quantity=" + "'," 
+        + @id_t + ", " + min + ", " + max + ");" +  "\"/>";
+
         <td>
             Quantity:
-            @Html.TextBox("Quantity") |
-            @Html.ActionLink("Buy", "Buy", new { id = item.ProductID, Quantity = 5})
-            <input type="submit" id="Quantity"  value="text" />
+            
+            @Html.TextBox(id_t, 0, htmlAttributes_t)
+
+            @Html.Raw(buybutton)
+           
         </td>
+
 }
     </tr>
 }
 
 </table>
+
+<script>
+    function changeUrl(html, element, min, max) {
+
+        value = element.value
+
+        if (min <= value && value <= max) {
+            newhref = html + value;
+            //prompt(newhref);
+            window.location.href = newhref
+        }
+} 
+</script>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

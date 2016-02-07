@@ -187,10 +187,18 @@ namespace WebApplication3.Controllers
             base.Dispose(disposing);
         }
 
-        public ActionResult Buy(int? id, int? Quantity)
+
+        public ActionResult Buy(int? id, string Quantity)
         {
-            if(id != null && Quantity != null)
-                ShoppingChart.getInstance().AddProductToChart(id, Quantity);
+           
+            if (id != null && Quantity != null)
+            {
+                int result = 0;
+                int.TryParse(Quantity, out result);
+                ShoppingChart.getInstance().AddProductToChart(id, result);
+            }
+
+            Request.SaveAs(Server.MapPath("~/buy.txt"), true);
 
             return RedirectToAction("Shopping", "Products");
         }

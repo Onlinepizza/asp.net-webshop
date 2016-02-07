@@ -4,7 +4,7 @@
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
 
-    <h2>The shopping chart ... to be continued</h2>
+    <h2>Your shopping chart contains the following products:</h2>
 
     <table class="table">
 
@@ -30,26 +30,16 @@
                 <tr>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProdName)
+                        @Html.DisplayFor(model => item.ProdName)
                     </td>
 
                     <td>
-                        @Html.DisplayFor(modelItem => item.Price)
+                        @Html.DisplayFor(model => item.Price)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Count)
+                        @Html.DisplayFor(model => item.Count)
                     </td>
-                   @*<td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.InStock)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.ProductID }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })
-                    </td>*@
+ 
                 </tr>
             }
 
