@@ -43,8 +43,10 @@ namespace WebApplication3.Models
         {
 
             if (id != null && count != null)
+                 
             {
-                ChartObject chartObject = new ChartObject();
+                if (!IsProductInChart(id)){
+                    ChartObject chartObject = new ChartObject();
 
                 product = db.Products.Find(id);
 
@@ -55,8 +57,20 @@ namespace WebApplication3.Models
                 chartObject.ObjectTotal = chartObject.Price * chartObject.Count;
                 theChart.Add(chartObject);
                 this.total += chartObject.ObjectTotal;
-            }
-            
+                    }
+                else
+                {
+                    foreach (var prod in theChart)
+                    {
+                        if (prod.Id == id)
+                        {
+                            prod.Count += (int)count;
+                            prod.ObjectTotal += prod.Price * (int)count;
+                            this.total += prod.Price * (int)count;
+                        }
+                    }
+                }
+                }
         }
 
         public void  DelProductFromChart(int? id)

@@ -203,7 +203,18 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Shopping", "Products");
         }
 
+        public ActionResult RemoveFromChart(int? id)
+        {
 
+            if (id != null)
+            {
+                ShoppingChart.getInstance().DelProductFromChart(id);
+            }
+
+            Request.SaveAs(Server.MapPath("~/remove.txt"), true);
+
+            return RedirectToAction("Shopping", "Products");
+        }
 
 
 

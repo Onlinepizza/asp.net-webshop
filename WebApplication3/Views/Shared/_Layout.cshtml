@@ -20,7 +20,6 @@
                 </button>
                 @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Products", "Shopping", "Products", new { area = "" }, new { @class = "navbar-brand" })
-                
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -30,29 +29,10 @@
 
     </div>
 
-
-
-
     <div class="navbar navbar-inverse navbar-fixed-bottom">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                
-               
-                @using (Html.BeginForm())
-                {
-
-                    <p>
-                        @Html.ActionLink("Shopping Chart", "Index","ShoppingChart", new { area =""}, new { @class = "navbar-brand"})           
-                    </p>
-                }
-
-
-
+                <p>&copy; @DateTime.Now.Year - Oscar Persson S131469, Jonathan Knutsson S143975, Henrik Wistbacka S142066</p>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>
@@ -61,17 +41,14 @@
 
     </div>
 
-
-
-
-
-
-
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - S131469</p>
+                <p>
+                    @Html.ActionLink("Shopping Chart", "Index", "ShoppingChart", new { area = "" }, new { @class = "navbar-brand" })
+                    
+                </p>
         </footer>
     </div>
 

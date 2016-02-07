@@ -216,7 +216,7 @@
     <Content Include="Views\Orderlines\Edit.cshtml" />
     <Content Include="Views\Orderlines\Index.cshtml" />
     <Content Include="Views\Products\Shopping.cshtml" />
-    <Content Include="Views\Products\CustomerDetails.cshtml" />
+    <Content Include="Views\Shared\CustomerDetails.cshtml" />
     <Content Include="Views\ShoppingChart\Index.cshtml" />
     <Content Include="Views\Orders\OrderSearch.cshtml" />
     <Content Include="Views\Products\Buy.cshtml" />

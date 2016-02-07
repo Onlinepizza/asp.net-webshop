@@ -1,0 +1,48 @@
+﻿@model WebApplication3.Models.Product
+
+@{
+    ViewBag.Title = "CustomerDetails";
+}
+
+<h2>Information om vara:</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ArtName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ArtName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Descr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descr)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InStock)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InStock)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Shopping")
+</p>
