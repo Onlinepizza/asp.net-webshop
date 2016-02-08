@@ -50,7 +50,12 @@
                     @Html.ActionLink("Shopping Chart", "Index", "ShoppingChart", new { area = "" }, new { @class = "navbar-brand" })
                     
                 </p>
-        </footer>
+            
+            <iframe src=@Url.Action("Index", "ShoppingChart")>
+                @*<iframe srcdoc="<h2>It is hard to load the shoppingChart into this iframe</h2>">*@
+                @*<iframe srcdoc=@RenderPage("~/Views/ShoppingChart/Index.cshtml", @WebApplication3.Models.ShoppingChart.getInstance())></iframe>*@
+            </iframe>
+</footer>
     </div>
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
