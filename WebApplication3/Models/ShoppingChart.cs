@@ -78,14 +78,23 @@ namespace WebApplication3.Models
             if (id != null)
             {
 
-                foreach (var prod in theChart)
+                try
                 {
-                    if (prod.Id == id)
+                    foreach (var prod in theChart)
                     {
-                        this.total -= prod.ObjectTotal;
-                        theChart.Remove(prod);
+                        if (prod.Id == id)
+                        {
+                            this.total -= prod.ObjectTotal;
+                            theChart.Remove(prod);
+                        }
                     }
                 }
+                catch (System.InvalidOperationException)
+                {
+                    ;
+                }
+
+
             }
 
         }

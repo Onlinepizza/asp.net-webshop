@@ -146,19 +146,19 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="scripts\ai.0.15.0-build58334.js" />
-    <Content Include="scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="scripts\bootstrap.js" />
-    <Content Include="scripts\bootstrap.min.js" />
-    <None Include="scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="scripts\jquery-1.10.2.js" />
-    <Content Include="scripts\jquery-1.10.2.min.js" />
-    <None Include="scripts\jquery.validate-vsdoc.js" />
-    <Content Include="scripts\jquery.validate.js" />
-    <Content Include="scripts\jquery.validate.min.js" />
-    <Content Include="scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="obj\scripts\ai.0.15.0-build58334.js" />
+    <Content Include="obj\scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="obj\scripts\bootstrap.js" />
+    <Content Include="obj\scripts\bootstrap.min.js" />
+    <None Include="obj\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="obj\scripts\jquery-1.10.2.js" />
+    <Content Include="obj\scripts\jquery-1.10.2.min.js" />
+    <None Include="obj\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="obj\scripts\jquery.validate.js" />
+    <Content Include="obj\scripts\jquery.validate.min.js" />
+    <Content Include="obj\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="obj\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="obj\scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -194,7 +194,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="scripts\jquery-1.10.2.min.map" />
+    <Content Include="obj\scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Customers\Create.cshtml" />
     <Content Include="Views\Customers\Delete.cshtml" />
     <Content Include="Views\Customers\Details.cshtml" />

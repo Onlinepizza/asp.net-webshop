@@ -48,8 +48,12 @@
 
                    @using (Html.BeginForm())
                    {
-                       string removeButton = "<input type=\"button\" value=\"RemoveFromChart\" onclick=\"changeUrl('"
-                           + Url.Action("RemoveFromChart", "Products") + item.Id + ");" + "\"/>";
+
+                       var id_t = "ChartItem" + item.Id;
+
+                       string removeButton = "<input type=\"button\" id=\"" + @id_t + "\" name=\"" + @id_t + "\" value=\"RemoveFromChart\" onclick=\"changeUrl('"
+                              + Url.Action("RemoveFromChart", "Products") + "/" + item.Id + "');" + "\"/>";
+
                     <td>
                         @Html.Raw(removeButton)
                     </td>
@@ -62,3 +66,11 @@
     </table>
 
 
+<script>
+    function changeUrl(html) {
+
+            newhref = html;
+            //prompt(newhref);
+            window.location.href = newhref
+}
+</script>

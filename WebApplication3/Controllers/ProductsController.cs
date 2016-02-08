@@ -213,7 +213,7 @@ namespace WebApplication3.Controllers
 
             Request.SaveAs(Server.MapPath("~/remove.txt"), true);
 
-            return RedirectToAction("Shopping", "Products");
+            return RedirectToAction("Index", "ShoppingChart");
         }
 
 
