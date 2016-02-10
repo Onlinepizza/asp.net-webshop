@@ -1,10 +1,8 @@
 ﻿@model IEnumerable<WebApplication3.Models.ChartObject>
 
     @{
-        Layout = "~/Views/Shared/_Layout.cshtml";
+        Layout = "~/Views/Shared/_Layout_shoppingChart.cshtml";
     }
-
-    <h2>Your shopping chart contains the following products:</h2>
 
     <table class="table">
 
@@ -70,7 +68,7 @@
     function changeUrl(html) {
 
             newhref = html;
-            //prompt(newhref);
+            
             window.location.href = newhref
 }
 </script>

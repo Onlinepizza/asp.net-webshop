@@ -33,7 +33,7 @@
     <div class="navbar navbar-inverse navbar-fixed-bottom">
         <div class="container">
             <div class="navbar-header">
-                <p>&copy; @DateTime.Now.Year - Oscar Persson S131469, Jonathan Knutsson S143975, Henrik Wistbacka S142066</p>
+                <p style="color:white">&copy; @DateTime.Now.Year - Oscar Persson S131469, Jonathan Knutsson S143975, Henrik Wistbacka S142066</p>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>
@@ -46,12 +46,8 @@
         @RenderBody()
         <hr />
         <footer>
-                <p>
-                    @Html.ActionLink("Shopping Chart", "Index", "ShoppingChart", new { area = "" }, new { @class = "navbar-brand" })
-                    
-                </p>
             
-            <iframe src=@Url.Action("Index", "ShoppingChart")>
+            <iframe width="500" height="250" src=@Url.Action("Index", "ShoppingChart")>
                 @*<iframe srcdoc="<h2>It is hard to load the shoppingChart into this iframe</h2>">*@
                 @*<iframe srcdoc=@RenderPage("~/Views/ShoppingChart/Index.cshtml", @WebApplication3.Models.ShoppingChart.getInstance())></iframe>*@
             </iframe>
