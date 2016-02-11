@@ -10,7 +10,6 @@ namespace WebApplication3.Controllers
 {
     public class ShoppingChartController : Controller
     {
-        ShoppingChart chart;
         private TheDatabase db = new TheDatabase();
 
         // GET: ShoppingChart
@@ -34,6 +33,11 @@ namespace WebApplication3.Controllers
                 return HttpNotFound();
             }
             return View(product);
+        }
+
+        public ActionResult LastAddedProduct(int? id)
+        {
+            return View(ShoppingChart.getInstance().LastAddedProduct(id));
         }
 
     }

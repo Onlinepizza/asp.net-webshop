@@ -24,12 +24,14 @@ namespace WebApplication3.Models
         private TheDatabase db = new TheDatabase();
         private static List<ChartObject> theChart = new List<ChartObject>();
         private Product product;
+        private ChartObject lastInserted;
 
         public double total { get; set; }
 
 
         private ShoppingChart()
         {
+            lastInserted = new ChartObject();
             this.total = 0;
         }
 
@@ -55,8 +57,14 @@ namespace WebApplication3.Models
                 chartObject.Price = product.Price;
                 chartObject.Count = (int)count;
                 chartObject.ObjectTotal = chartObject.Price * chartObject.Count;
+
+                    
+                copy(chartObject);
+
                 theChart.Add(chartObject);
+
                 this.total += chartObject.ObjectTotal;
+
                     }
                 else
                 {
@@ -127,6 +135,20 @@ namespace WebApplication3.Models
         IEnumerator IEnumerable.GetEnumerator()
         {
             return theChart.GetEnumerator();
+        }
+
+        public ChartObject LastAddedProduct(int? id)
+        {
+            return lastInserted;
+        }
+
+        private void copy(ChartObject obj)
+        {
+            lastInserted.Id = obj.Id;
+            lastInserted.ObjectTotal = obj.ObjectTotal;
+            lastInserted.Price = obj.Price;
+            lastInserted.ProdName = obj.ProdName;
+            lastInserted.Count = obj.Count;
         }
 
    }

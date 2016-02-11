@@ -221,6 +221,8 @@
     <Content Include="Views\Orders\OrderSearch.cshtml" />
     <Content Include="Views\Products\Buy.cshtml" />
     <Content Include="Views\Shared\_Layout_shoppingChart.cshtml" />
+    <Content Include="Views\ShoppingChart\LastAddedProduct.cshtml" />
+    <Content Include="Views\Shared\_Layout_lean.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

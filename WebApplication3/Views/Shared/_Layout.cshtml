@@ -10,7 +10,7 @@
 
     <style>
         .dropdown {
-            position: relative;
+            position:inherit;
             display: inline-block;
         }
 
@@ -43,36 +43,27 @@
                     @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                     @Html.ActionLink("Products", "Shopping", "Products", new { area = "" }, new { @class = "navbar-brand" })
                     @Html.ActionLink("Checkout", "Index", "Customers/Create", new { area = "" }, new { @class = "navbar-brand" })
+
+                    <div class="dropdown">
+                        @Html.ActionLink("ShoppingChart", "Index", "ShoppingChart", new { area = "" }, new { @class = "navbar-brand" })
+
+                        @*<iframe style="height: 50px; width: 500px;" src=@Url.Action("LastAddedProduct", "ShoppingChart")></iframe>*@
+
+                        <div class="navbar-text">
+                            @Html.Action("LastAddedProduct", "ShoppingChart")
+                        </div>
+
+                        <div class="dropdown-content">
+                            <iframe width="500" height="250" src=@Url.Action("Index", "ShoppingChart")></iframe>
+                        </div>
+                    </div>
+
                 </div>
-
-
- 
-
-
 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav"></ul>
                 </div>
             </div>
-
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-
-                <div class="dropdown">
-                    <span> @Html.ActionLink("ShoppingChart", "Index", "ShoppingChart", new { area = "" }, new { @class = "navbar-brand" })</span>
-                    <div class="dropdown-content">
-                        <iframe width="500" height="250" src=@Url.Action("Index", "ShoppingChart")></iframe>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
     </div>
 
 
@@ -93,14 +84,11 @@
 
     <div class="container body-content">
 
-        <table>
-            <tr>
-                <td>
-                    @RenderBody()
-                </td>
-
-            </tr>
-        </table>
+        <br />
+        <br />
+        <br />
+        <br />
+                @RenderBody()
 
     </div>
 
@@ -109,5 +97,3 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
 </html>
-
-
