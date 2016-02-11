@@ -1,5 +1,4 @@
-﻿
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -8,9 +7,54 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+
+    <style>
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            padding: 12px 16px;
+            z-index: 1
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
 </head>
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
+
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Products", "Shopping", "Products", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Checkout", "Index", "Customers/Create", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+
+
+ 
+
+
+
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav"></ul>
+                </div>
+            </div>
+
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -18,17 +62,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Products", "Shopping", "Products", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Checkout", "Index", "Customers/Create", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
+
+                <div class="dropdown">
+                    <span> @Html.ActionLink("ShoppingChart", "Index", "ShoppingChart", new { area = "" }, new { @class = "navbar-brand" })</span>
+                    <div class="dropdown-content">
+                        <iframe width="500" height="250" src=@Url.Action("Index", "ShoppingChart")></iframe>
+                    </div>
+                </div>
+
+
             </div>
         </div>
-
     </div>
+
+
 
     <div class="navbar navbar-inverse navbar-fixed-bottom">
         <div class="container">
@@ -42,19 +89,25 @@
 
     </div>
 
+
+
     <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            
-            <iframe width="500" height="250" src=@Url.Action("Index", "ShoppingChart")>
-                @*<iframe srcdoc="<h2>It is hard to load the shoppingChart into this iframe</h2>">*@
-                @*<iframe srcdoc=@RenderPage("~/Views/ShoppingChart/Index.cshtml", @WebApplication3.Models.ShoppingChart.getInstance())></iframe>*@
-            </iframe>
-</footer>
+
+        <table>
+            <tr>
+                <td>
+                    @RenderBody()
+                </td>
+
+            </tr>
+        </table>
+
     </div>
+
 
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
 </html>
+
+
