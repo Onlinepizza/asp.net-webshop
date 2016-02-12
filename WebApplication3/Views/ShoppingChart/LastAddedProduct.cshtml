@@ -8,7 +8,11 @@
 
     <tr>
         <td>
-            Last item: @Html.DisplayFor(model => model.ProdName)
+            Last item: Id: @Html.DisplayFor(model => model.Id)
+        </td>
+
+        <td>
+            Name: @Html.DisplayFor(model => model.ProdName)
         </td>
 
         @*<td>
@@ -22,7 +26,6 @@
         <td>
             Total price: @Html.DisplayFor(model => model.ObjectTotal)
         </td>
-
 
     </tr>
 </table>

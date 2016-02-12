@@ -7,9 +7,12 @@
     <table class="table">
 
     <tr>
-
         <th>
             @Html.DisplayNameFor(model => model.ProdName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
         </th>
 
         <th>
@@ -29,8 +32,13 @@
 
 @foreach (var item in Model)            {
                 <tr>
+
                     <td>
                         @Html.ActionLink(item.ProdName, "CustomerDetails", new { id = item.Id })
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => item.Id)
                     </td>
 
                     <td>
@@ -49,7 +57,7 @@
 
                        var id_t = "ChartItem" + item.Id;
 
-                       string removeButton = "<input type=\"button\" id=\"" + @id_t + "\" name=\"" + @id_t + "\" value=\"RemoveFromChart\" onclick=\"changeUrl('"
+                       string removeButton = "<input type=\"button\" id=\"" + @id_t + "\" name=\"" + @id_t + "\" value=\"Remove\" onclick=\"changeUrl('"
                               + Url.Action("RemoveFromChart", "Products") + "/" + item.Id + "');" + "\"/>";
 
                     <td>

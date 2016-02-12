@@ -75,6 +75,8 @@ namespace WebApplication3.Models
                             prod.Count += (int)count;
                             prod.ObjectTotal += prod.Price * (int)count;
                             this.total += prod.Price * (int)count;
+
+                            copy(prod);
                         }
                     }
                 }
