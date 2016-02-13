@@ -16,6 +16,9 @@ namespace WebApplication3.Controllers
         public ActionResult Index()
         {
 
+            ViewData["TotalExclTax"] = ShoppingChart.getInstance().TotalSumExclTax();
+            ViewData["TotalInclTax"] = ShoppingChart.getInstance().TotalSumInclTax();
+
             return View(ShoppingChart.getInstance());
         }
 
@@ -35,9 +38,9 @@ namespace WebApplication3.Controllers
             return View(product);
         }
 
-        public ActionResult LastAddedProduct(int? id)
+        public ActionResult LastAddedProduct()
         {
-            return View(ShoppingChart.getInstance().LastAddedProduct(id));
+            return View(ShoppingChart.getInstance().LastAddedProduct());
         }
 
     }

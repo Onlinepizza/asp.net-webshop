@@ -44,20 +44,6 @@
                 @Html.ActionLink("Products", "Shopping", "Products", new { area = "" }, new { @class = "navbar-brand" })
                 @Html.ActionLink("Checkout", "Index", "Customers/Create", new { area = "" }, new { @class = "navbar-brand" })
 
-                <div class="dropdown">
-                    @Html.ActionLink("ShoppingChart", "Index", "ShoppingChart", new { area = "" }, new { @class = "navbar-brand" })
-
-                    @*<iframe style="height: 50px; width: 500px;" src=@Url.Action("LastAddedProduct", "ShoppingChart")></iframe>*@
-
-                    <div class="navbar-text">
-                        @Html.Action("LastAddedProduct", "ShoppingChart")
-                    </div>
-
-                    <div class="dropdown-content">
-                        <iframe width="500" height="250" src=@Url.Action("Index", "ShoppingChart")></iframe>
-                    </div>
-                </div>
-
             </div>
 
             <div class="navbar-collapse collapse">
@@ -94,6 +80,8 @@
                 <td>
                     @RenderBody()
                 </td>
+
+                <td> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>
 
                 <td>
                     <iframe style="height: 500px; width: 500px;" src=@Url.Action("Index", "ShoppingChart")></iframe>

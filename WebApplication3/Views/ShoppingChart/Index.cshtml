@@ -30,7 +30,7 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model)            {
+@foreach (var item in Model) {
                 <tr>
 
                     <td>
@@ -67,7 +67,21 @@
                    }
 
 </tr>
-            }
+}
+
+        <tr>
+
+            <td><b>Total excl tax:</b>
+            <b><br />Total incl tax: </b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <b> @ViewData["TotalExclTax"] </b>
+                <b><br />@ViewData["TotalInclTax"] </b>
+            </td>
+
+        </tr>
 
     </table>
 

@@ -15,6 +15,7 @@ namespace WebApplication3.Models
         public int Count { get; set; }
 
         public double ObjectTotal { get; set; }
+
     }
 
     public class ShoppingChart: IEnumerable<ChartObject>
@@ -25,6 +26,8 @@ namespace WebApplication3.Models
         private static List<ChartObject> theChart = new List<ChartObject>();
         private Product product;
         private ChartObject lastInserted;
+        private double ShoppingChartTotalExclTax;
+        private double ShoppingChartTotalInclTax;
 
         public double total { get; set; }
 
@@ -139,7 +142,7 @@ namespace WebApplication3.Models
             return theChart.GetEnumerator();
         }
 
-        public ChartObject LastAddedProduct(int? id)
+        public ChartObject LastAddedProduct()
         {
             return lastInserted;
         }
@@ -153,5 +156,27 @@ namespace WebApplication3.Models
             lastInserted.Count = obj.Count;
         }
 
-   }
+        public double TotalSumExclTax()
+        {
+            ShoppingChartTotalInclTax = 0;
+            ShoppingChartTotalExclTax = 0;
+
+            foreach (var item in theChart)
+            {
+                ShoppingChartTotalExclTax += item.ObjectTotal;
+
+            }
+
+            ShoppingChartTotalInclTax = ShoppingChartTotalExclTax * 1.25;
+
+            return ShoppingChartTotalExclTax;
+        }
+
+        public double TotalSumInclTax()
+        {
+
+            return ShoppingChartTotalExclTax * 1.25;
+        }
+
+    }
 }
