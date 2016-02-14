@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -54,10 +56,28 @@ namespace WebApplication3.Controllers
             {
                 db.Customers.Add(customer);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+
+                ViewData["orderid"] = createOrder(customer);
+                //return RedirectToAction("Index");
             }
 
             return View(customer);
+        }
+
+        private int createOrder(Customer customer)
+        {
+            Order order = new Order();
+
+            order.CustomerID = customer.CustomerID;
+
+            db.Orders.Add(order);
+
+            db.SaveChanges();
+
+            DbSqlQuery<Order> justSavedOrder = db.Orders.SqlQuery("SELECT * FROM Orders WHERE CustomerID=@custid;", new SqlParameter("@custid", customer.CustomerID));
+
+            return justSavedOrder.First().OrderID;
+
         }
 
         // GET: Customers/Edit/5
