@@ -1,9 +1,7 @@
 ﻿@model WebApplication3.Models.Product
 
 @{
-    ViewBag.Title = "CustomerDetails";
-
-    Layout = "~/Views/Shared/_Layout_shoppingChart.cshtml";
+    ViewBag.Title = "CustomerDetails";    
 }
 
 <h2>Information om vara:</h2>
@@ -46,7 +44,53 @@
     </dl>
 </div>
 
-<h2>Others also bought:</h2>
+
+@using (Html.BeginForm())
+{
+
+    int min = 1;
+    int max = 100;
+    var id_t = "Quantity" + Model.ProductID;
+    var attrs_t = new { type = "number", id = @id_t, name = @id_t, value = "1", min = @min, max = @max };
+    IDictionary<string, object> htmlAttributes_t = HtmlHelper.AnonymousObjectToHtmlAttributes(attrs_t);
+
+
+    string buybutton = "<input type=\"button\" value=\"Buy\" onclick=\"changeUrl('"
+        + Url.Action("Buy", "Products") + "/" + Model.ProductID + "?Quantity=" + "',"
+        + @id_t + ", " + min + ", " + max + ");" + "\"/>";
+
+    <td>
+        Quantity:
+
+        @Html.TextBox(id_t, 0, htmlAttributes_t)
+
+        @Html.Raw(buybutton)
+
+    </td>
+
+}
+
+
+<script>
+    function changeUrl(html, element, min, max) {
+
+        value = element.value
+
+        if (min <= value && value <= max) {
+            newhref = html + value;
+            //prompt(newhref);
+            window.location.href = newhref
+        }
+}
+</script>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+
+
+<h4>Others also bought:</h4>
 
 @if (ViewBag.Id != null)
 {
