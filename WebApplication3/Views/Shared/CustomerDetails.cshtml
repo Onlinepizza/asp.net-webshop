@@ -45,6 +45,15 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+<h2>Others also bought:</h2>
+
+@if (ViewBag.Id != null)
+{
+   
+    @Html.ActionLink((string)ViewBag.Name, "CustomerDetails", new { id = ViewBag.Id })
+   
+}
+        <p>
+            @Html.ActionLink("Back to List", "Shopping")
+        </p>

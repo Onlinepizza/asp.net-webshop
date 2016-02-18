@@ -86,6 +86,9 @@ namespace WebApplication3.Controllers
         // GET: Products/Details/5
         public ActionResult CustomerDetails(int? id)
         {
+
+            int i;
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -94,6 +97,19 @@ namespace WebApplication3.Controllers
             if (product == null)
             {
                 return HttpNotFound();
+            }
+
+            var lines = from l in db.Orderlines select l;
+            lines = lines.Where(s => s.ArtID == id);
+            if (lines.Any()) {
+                var relatedLines = from l in db.Orderlines select l;
+                relatedLines = relatedLines.Where(s => s.OrderID == lines.FirstOrDefault().OrderID);
+                if (relatedLines.Any()) { 
+                    relatedLines = relatedLines.Where(s => s.ArtID != id);                
+                    Product related = db.Products.Find(relatedLines.FirstOrDefault().ArtID);
+                    ViewBag.Name = related.ArtName;
+                    ViewBag.Id = related.ProductID;
+                }
             }
             return View(product);
         }
