@@ -52,7 +52,8 @@ namespace WebApplication3.Controllers
             db.SaveChanges();
             var lines = cart.GetEnumerator();
             int e = 1;
-            while (e == 1)
+            bool breakBool = true;
+            while (e != 0)
             {
                 Orderline Oline = new Orderline();
                 Oline.Antal = lines.Current.Count;
@@ -60,7 +61,8 @@ namespace WebApplication3.Controllers
                 Oline.OrderID = identity;
                 db.Orderlines.Add(Oline);
                 db.SaveChanges();
-                if (!lines.MoveNext())
+                breakBool = lines.MoveNext();
+                if (!breakBool)
                 {
                     e = 0;
                 }
