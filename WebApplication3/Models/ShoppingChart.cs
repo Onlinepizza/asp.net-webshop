@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace WebApplication3.Models
@@ -178,5 +180,72 @@ namespace WebApplication3.Models
             return ShoppingChartTotalExclTax * 1.25;
         }
 
+        public string CheckoutProducts()
+        {
+            string answer = "";
+
+            List<ChartObject> databaseChart = new List<ChartObject>();
+
+            foreach (var item in ShoppingChart.getInstance())
+            {
+                ChartObject obj = new ChartObject();
+
+                Product row = db.Products.Find(item.Id);
+
+                if (row != null )
+                {
+                    obj.Id = item.Id;
+                    obj.Count = row.InStock;
+
+                    databaseChart.Add(obj);
+                }
+            }
+
+
+            DbContextTransaction myTrans;
+            myTrans = db.Database.BeginTransaction();
+
+            ChartObject dbchartobj = null;
+
+            try
+            {
+                //db.Database.ExecuteSqlCommand(
+                //    "INSERT INTO Products (ArtName, InStock, Price, Descr) VALUES('Prototype', 7, 88, @descr); SELECT * FROM Dejligt;"
+                //    , new SqlParameter("@descr", "An even newer product"));
+                foreach (var item in ShoppingChart.getInstance())
+                {
+                    dbchartobj = databaseChart.Find(m => m.Id == item.Id);
+
+                    if (dbchartobj != null)
+                    {
+                        db.Database.ExecuteSqlCommand(
+                        "UPDATE Products SET InStock=@num WHERE ProductID=@ID;"
+                        , new SqlParameter("@num", dbchartobj.Count - item.Count), new SqlParameter("@ID", item.Id));
+                    }
+                }
+
+                myTrans.Commit();
+            }
+            catch (System.Exception e)
+            {
+                answer = e.ToString();
+                myTrans.Rollback();
+            }
+            finally
+            {
+                ;
+            }
+
+            if (answer != "")
+                return answer;
+
+            emptyChart();
+            return "Finished Checkout successfully";
+        }
+
+        public void emptyChart()
+        {
+            theChart.Clear();
+        }
     }
 }

@@ -235,6 +235,7 @@
     <Content Include="Views\ShoppingChart\LastAddedProduct.cshtml" />
     <Content Include="Views\Shared\_Layout_lean.cshtml" />
     <Content Include="Views\Shared\_Layout_checkout.cshtml" />
+    <Content Include="Views\ShoppingChart\CheckoutProducts.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -46,5 +48,12 @@ namespace WebApplication3.Controllers
             return View(ShoppingChart.getInstance().LastAddedProduct());
         }
 
+        public ActionResult CheckoutProducts()
+        {
+            string answer = ShoppingChart.getInstance().CheckoutProducts();
+
+            ViewData["answer"] = answer;
+            return View();
+        }
     }
 }
