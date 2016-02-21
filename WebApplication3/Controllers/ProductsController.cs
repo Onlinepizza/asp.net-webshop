@@ -111,6 +111,8 @@ namespace WebApplication3.Controllers
                     ViewBag.Id = related.ProductID;
                 }
             }
+            ViewData["action"] = "Shopping";
+            ViewData["controller"] = "Products";
             return View(product);
         }
 

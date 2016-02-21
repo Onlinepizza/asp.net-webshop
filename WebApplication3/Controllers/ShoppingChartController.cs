@@ -35,6 +35,9 @@ namespace WebApplication3.Controllers
             {
                 return HttpNotFound();
             }
+            ViewData["action"] = "Index";
+            ViewData["controller"] = "ShoppingChart";
+
             return View(product);
         }
 
