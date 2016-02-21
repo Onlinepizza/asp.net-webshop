@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,20 +22,24 @@ namespace WebApplication3.Controllers
         {
             return View();
         }
-
-        // POST: Customers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateOrder([Bind(Include = "CustomerID,FName,LName,Adress,PostNr,City,Email,Phone,Comment")] Customer customer)
         {
             if (ModelState.IsValid)
             {
-                
+
                 db.Customers.Add(customer);
                 db.SaveChanges();
-                Buy(customer.CustomerID);
+                try
+                {
+                    Buy(customer.CustomerID);
+                }
+                catch (InvalidOperationException e)
+                {
+
+                    //delete last customer
+                }
                 //ViewData["orderid"] = createOrder(customer);
                 //return RedirectToAction("Index");
             }
@@ -44,29 +49,54 @@ namespace WebApplication3.Controllers
 
         public void Buy(int id)
         {
-            Order newOrder = new Order();
-            db.Orders.Add(newOrder);
-            db.SaveChanges();
-            int identity = db.Orders.Last().OrderID;
-            db.Orders.Last().CustomerID = id;
-            db.SaveChanges();
             var lines = cart.GetEnumerator();
-            int e = 1;
-            bool breakBool = true;
-            while (e != 0)
+            if (IsOrderPossible())
             {
-                Orderline Oline = new Orderline();
-                Oline.Antal = lines.Current.Count;
-                Oline.ArtID = lines.Current.Id;
-                Oline.OrderID = identity;
-                db.Orderlines.Add(Oline);
+                Order newOrder = new Order();
+                db.Orders.Add(newOrder);
                 db.SaveChanges();
-                breakBool = lines.MoveNext();
-                if (!breakBool)
+                int identity = db.Orders.Last().OrderID;
+                db.Orders.Last().CustomerID = id;
+                db.SaveChanges();
+
+                int e = 1;
+                bool breakBool = true;
+                while (e != 0)
                 {
-                    e = 0;
+                    Orderline Oline = new Orderline();
+                    Oline.Antal = lines.Current.Count;
+                    Oline.ArtID = lines.Current.Id;
+                    Oline.OrderID = identity;
+                    db.Orderlines.Add(Oline);
+                    db.SaveChanges();
+                    breakBool = lines.MoveNext();
+                    if (!breakBool)
+                    {
+                        e = 0;
+                    }
                 }
             }
+            throw new InvalidOperationException();
+            //exception
+        }
+
+        public bool IsOrderPossible()
+        {
+            bool i = true;
+            var Lines = cart.GetEnumerator();
+            while (i)
+            {
+                var prod = db.Products.Find(Lines.Current.Id);
+                if (prod.InStock < Lines.Current.Count)
+                {
+                    return false;
+                }
+                else {
+                    i = Lines.MoveNext();
+                }
+            }
+            Lines.Reset();
+            return true;
         }
 
         // GET: Buy/Details/5
