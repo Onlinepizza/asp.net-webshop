@@ -76,7 +76,9 @@ namespace WebApplication3.Controllers
                     }
                 }
             }
-            throw new InvalidOperationException();
+            else { throw new InvalidOperationException();
+            }
+            
             //exception
         }
 
