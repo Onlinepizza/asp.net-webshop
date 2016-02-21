@@ -83,7 +83,7 @@ namespace WebApplication3.Controllers
                 }
                 catch (InvalidOperationException e)
                 {
-
+                    System.Console.WriteLine("empty basket motherfucker");
                     //delete last customer
                 }
                 //ViewData["orderid"] = createOrder(customer);
@@ -97,7 +97,7 @@ namespace WebApplication3.Controllers
         public void Buy(int id)
         {
             var lines = cart.GetEnumerator();
-            if (IsOrderPossible())
+            if (IsOrderPossible() & lines.Current.Count > 0)
             {
                 Order newOrder = new Order();
                 db.Orders.Add(newOrder);
