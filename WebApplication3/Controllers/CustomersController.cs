@@ -16,6 +16,7 @@ namespace WebApplication3.Controllers
     {
         private TheDatabase db = new TheDatabase();
         private ShoppingChart cart = ShoppingChart.getInstance();
+        
         // GET: Customers
         public ActionResult Index()
         {
@@ -96,8 +97,10 @@ namespace WebApplication3.Controllers
 
         public void Buy(int id)
         {
+            
+
             var lines = cart.GetEnumerator();
-            if (IsOrderPossible() & lines.Current.Count > 0)
+            if (lines.Current.Count > 0 && IsOrderPossible())
             {
                 Order newOrder = new Order();
                 db.Orders.Add(newOrder);
@@ -134,8 +137,13 @@ namespace WebApplication3.Controllers
         {
             bool i = true;
             var Lines = cart.GetEnumerator();
+
+          
+
+
             while (i)
             {
+                
                 Product prod = db.Products.Find(Lines.Current.Id);
                 if (prod.InStock < Lines.Current.Count)
                 {
@@ -143,6 +151,7 @@ namespace WebApplication3.Controllers
                 }
                 else {
                     i = Lines.MoveNext();
+                    System.Console.WriteLine(i);
                 }
             }
             Lines.Reset();

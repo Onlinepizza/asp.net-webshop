@@ -90,6 +90,7 @@ namespace WebApplication3.Controllers
             var Lines = cart.GetEnumerator();
             while (i)
             {
+ 
                 var prod = db.Products.Find(Lines.Current.Id);
                 if (prod.InStock < Lines.Current.Count)
                 {
