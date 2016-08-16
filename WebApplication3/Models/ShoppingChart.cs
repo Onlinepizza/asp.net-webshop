@@ -220,7 +220,7 @@ namespace WebApplication3.Models
                     {
                         db.Database.ExecuteSqlCommand(
                         "UPDATE Products SET InStock=@num WHERE ProductID=@ID;"
-                        , new SqlParameter("@num", dbchartobj.Count - item.Count), new SqlParameter("@ID", item.Id));
+                        , new SqlParameter("@num", dbchartobj.Count - item.Count), new SqlParameter("@ID", dbchartobj.Id));
                     }
                 }
 
@@ -233,7 +233,7 @@ namespace WebApplication3.Models
             }
             finally
             {
-                ;
+                myTrans.Dispose();
             }
 
             if (answer != "")

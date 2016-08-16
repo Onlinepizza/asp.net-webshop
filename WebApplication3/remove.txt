@@ -1,0 +1,10 @@
+GET /Products/RemoveFromChart/6 HTTP/1.1
+Connection: keep-alive
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: en-GB,en;q=0.5
+Cookie: __RequestVerificationToken=fqD2l4t2Y6z3rS-ACfaGSk_iq1ALW98sy2ECCNsTw31Q01VTpiSDnzvCIDjpyX1lREol5wFNEupmic5BdY7v7Vf_Zkji_3Kxrx6MSwHkiLA1
+Host: localhost:4465
+Referer: http://localhost:4465/ShoppingChart
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:44.0) Gecko/20100101 Firefox/44.0
+

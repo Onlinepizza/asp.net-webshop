@@ -245,6 +245,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="obj\" />
+    <Folder Include="Views\Buy\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
