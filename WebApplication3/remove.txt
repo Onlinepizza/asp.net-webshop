@@ -1,9 +1,9 @@
-GET /Products/RemoveFromChart/6 HTTP/1.1
+GET /Products/RemoveFromChart/2 HTTP/1.1
 Connection: keep-alive
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Encoding: gzip, deflate
-Accept-Language: en-GB,en;q=0.5
-Cookie: __RequestVerificationToken=KS8GZXcZSUXRntorYwkEuLgZ6cBgLnXx91tRwU2IQAF6dv7wSm8gfOyRHAU8gT53fyzdTBtLZUrtxOM0RNlxHflLO1Eq-ofWKsjwuUCsYm01
+Accept-Language: sv-SE,sv;q=0.8,en-US;q=0.5,en;q=0.3
+Cookie: __RequestVerificationToken=s7rrpXHw1ow_erv08HBqeE7toBN-3YTv3ZxezXzunP8x-JUwi2Sm__BI0uhPVvydhi-vtWW70z4jy_2sDaDktyaGP8M_LP-FpRQt3LvbDy81
 Host: localhost:4465
 Referer: http://localhost:4465/ShoppingChart
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0
