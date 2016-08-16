@@ -1,4 +1,4 @@
-GET /Products/Buy/3?Quantity=3 HTTP/1.1
+GET /Products/Buy/13?Quantity=1 HTTP/1.1
 Connection: keep-alive
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Encoding: gzip, deflate
