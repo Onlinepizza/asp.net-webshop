@@ -46,7 +46,7 @@ namespace WebApplication3.Models
 
         }
 
-        public void AddProductToChart(int? id, int? count)
+        public void AddProductToChart(int? id, int? count, string encodedCookieValue)
         {
 
             if (id != null && count != null)
@@ -88,7 +88,7 @@ namespace WebApplication3.Models
                 }
         }
 
-        public void  DelProductFromChart(int? id)
+        public void  DelProductFromChart(int? id, string encodedCookieValue)
         {
             if (id != null)
             {

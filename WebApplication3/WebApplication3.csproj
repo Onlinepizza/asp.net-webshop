@@ -180,6 +180,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CookieModel.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Orderline.cs" />
     <Compile Include="Models\ShoppingChart.cs" />
@@ -246,6 +247,7 @@
   <ItemGroup>
     <Folder Include="obj\" />
     <Folder Include="Views\Buy\" />
+    <Folder Include="Views\Cookie\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

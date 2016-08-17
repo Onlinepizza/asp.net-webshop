@@ -4,8 +4,10 @@ using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using WebApplication3.Models;
 
 
@@ -49,6 +51,7 @@ namespace WebApplication3.Controllers
     {
         private TheDatabase db = new TheDatabase();
         // GET: ShoppingChart
+
         public ActionResult Index()
         {
 

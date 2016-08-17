@@ -213,7 +213,10 @@ namespace WebApplication3.Controllers
             {
                 int result = 0;
                 int.TryParse(Quantity, out result);
-                ShoppingChart.getInstance().AddProductToChart(id, result);
+
+                if (Request.Cookies[CookieModel.CookieName] != null && Request.Cookies[CookieModel.CookieName].Value != null)
+                    ShoppingChart.getInstance().AddProductToChart(id, result, CookieModel.GetCartName(Request.Cookies[CookieModel.CookieName].Value));
+                
             }
 
             Request.SaveAs(Server.MapPath("~/buy.txt"), true);
@@ -224,10 +227,8 @@ namespace WebApplication3.Controllers
         public ActionResult RemoveFromChart(int? id)
         {
 
-            if (id != null)
-            {
-                ShoppingChart.getInstance().DelProductFromChart(id);
-            }
+            if (id != null && Request.Cookies[CookieModel.CookieName] != null && Request.Cookies[CookieModel.CookieName].Value != null)
+                ShoppingChart.getInstance().DelProductFromChart(id, CookieModel.GetCartName(Request.Cookies[CookieModel.CookieName].Value));
 
             Request.SaveAs(Server.MapPath("~/remove.txt"), true);
 
