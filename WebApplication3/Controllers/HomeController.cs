@@ -16,17 +16,22 @@ namespace WebApplication3.Controllers
         public ActionResult Index()
         {
 
-            InitialiseShoppingCartCookie();
+            InitializeShoppingCartCookie();
 
                 return View();    
                  
         }
 
-        private void InitialiseShoppingCartCookie()
+        private void InitializeShoppingCartCookie()
         {
-            if (Request.Cookies[CookieModel.CookieName] == null || Request.Cookies[CookieModel.CookieName].Value == null)
+            string cookieValue = null;
+
+            if (Request.Cookies[CookieModel.CookieName] == null)
                 Response.Cookies[CookieModel.CookieName].Value = CookieModel.GetNextCartNameEncoded();
 
+            cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+
+            ShoppingChart.getInstance().InitializeShoppingChart(cookieValue);
         }
 
         //GET: Order

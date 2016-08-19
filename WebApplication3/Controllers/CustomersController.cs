@@ -73,88 +73,86 @@ namespace WebApplication3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateOrder([Bind(Include = "CustomerID,FName,LName,Adress,PostNr,City,Email,Phone,Comment")] Customer customer)
         {
-            if (ModelState.IsValid)
+            if (Request.Cookies[CookieModel.CookieName] != null)
             {
+                string cookieValue = Request.Cookies[CookieModel.CookieName].Value;
 
-                db.Customers.Add(customer);
-                db.SaveChanges();
-                try
+                if (cookieValue != null && ModelState.IsValid)
                 {
-                    Buy(customer.CustomerID);
+
+                    db.Customers.Add(customer);
+                    db.SaveChanges();
+                    try
+                    {
+                        Buy(customer.CustomerID, cookieValue);
+                    }
+                    catch (InvalidOperationException e)
+                    {
+                        System.Console.WriteLine("empty basket motherfucker");
+                        //delete last customer
+                    }
+                    //ViewData["orderid"] = createOrder(customer);
+                    //return RedirectToAction("Index");
                 }
-                catch (InvalidOperationException e)
-                {
-                    System.Console.WriteLine("empty basket motherfucker");
-                    //delete last customer
-                }
-                //ViewData["orderid"] = createOrder(customer);
-                //return RedirectToAction("Index");
+
+                
             }
-
             return View(customer);
         }
 
 
-        public void Buy(int id)
+        private void createNewOrder(int customerId,  out int orderId)
         {
-            
+            Order newOrder = new Order();
+            db.Orders.Add(newOrder);
+            db.SaveChanges();
 
-            var lines = cart.GetEnumerator();
-            if (lines.Current.Count > 0 && IsOrderPossible())
-            {
-                Order newOrder = new Order();
-                db.Orders.Add(newOrder);
-                db.SaveChanges();
-                int identity = db.Orders.Last().OrderID;
-                db.Orders.Last().CustomerID = id;
-                db.SaveChanges();
+            orderId = db.Orders.OrderByDescending(x => x.OrderID).Take(1).Single().OrderID;
 
-                int e = 1;
-                bool breakBool = true;
-                while (e != 0)
-                {
-                    Orderline Oline = new Orderline();
-                    Oline.Antal = lines.Current.Count;
-                    Oline.ArtID = lines.Current.Id;
-                    Oline.OrderID = identity;
-                    db.Orderlines.Add(Oline);
-                    db.SaveChanges();
-                    breakBool = lines.MoveNext();
-                    if (!breakBool)
-                    {
-                        e = 0;
-                    }
-                }
-            }
-            else {
-                throw new InvalidOperationException();
-            }
+            db.Orders.OrderByDescending(x => x.OrderID).Take(1).Single().CustomerID = customerId;
 
-            //exception
+            db.SaveChanges();
+
         }
 
-        public bool IsOrderPossible()
+        public void Buy(int customerId, string encodedCookieValue)
         {
-            bool i = true;
-            var Lines = cart.GetEnumerator();
+            int orderId = 0;
 
-          
+            createNewOrder(customerId, out orderId);
 
-
-            while (i)
+            if (IsOrderPossible(encodedCookieValue))
             {
-                
-                Product prod = db.Products.Find(Lines.Current.Id);
-                if (prod.InStock < Lines.Current.Count)
+                foreach (ChartObject chartObj in cart.GetChartObjects(encodedCookieValue))
                 {
-                    return false;
+                    Orderline Oline = new Orderline();
+                    Oline.Antal = chartObj.Count;
+                    Oline.ArtID = chartObj.Id;
+                    Oline.OrderID = orderId;
+                    db.Orderlines.Add(Oline);
+                    db.SaveChanges();
                 }
-                else {
-                    i = Lines.MoveNext();
-                    System.Console.WriteLine(i);
-                }
+                ShoppingChart.getInstance().emptyChart(encodedCookieValue);
             }
-            Lines.Reset();
+            else
+                throw new InvalidOperationException();
+        }
+
+        public bool IsOrderPossible(string encodedCookieValue)
+        {
+            Product prod;
+
+            foreach (ChartObject chartObj in cart.GetChartObjects(encodedCookieValue))
+            {
+               prod = db.Products.Find(chartObj.Id);
+
+                if (prod == null)
+                    return false;
+
+                if (prod.InStock < chartObj.Count)
+                    return false;
+            }
+
             return true;
         }
 

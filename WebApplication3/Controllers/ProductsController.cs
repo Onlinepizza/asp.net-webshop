@@ -206,17 +206,21 @@ namespace WebApplication3.Controllers
         }
 
 
-        public ActionResult Buy(int? id, string Quantity)
+        public ActionResult Buy(int id, string Quantity)
         {
-           
-            if (id != null && Quantity != null)
-            {
-                int result = 0;
-                int.TryParse(Quantity, out result);
 
-                if (Request.Cookies[CookieModel.CookieName] != null && Request.Cookies[CookieModel.CookieName].Value != null)
-                    ShoppingChart.getInstance().AddProductToChart(id, result, CookieModel.GetCartName(Request.Cookies[CookieModel.CookieName].Value));
-                
+
+            int parsedQuantity = 0;
+            int.TryParse(Quantity, out parsedQuantity);
+
+            string cookieValue = null;
+
+            if (Request.Cookies[CookieModel.CookieName] != null)
+            {
+                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+
+                if (cookieValue != null)
+                    ShoppingChart.getInstance().AddProductToChart(id, parsedQuantity, cookieValue);
             }
 
             Request.SaveAs(Server.MapPath("~/buy.txt"), true);
@@ -224,11 +228,19 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Shopping", "Products");
         }
 
-        public ActionResult RemoveFromChart(int? id)
+        public ActionResult RemoveFromChart(int id)
         {
 
-            if (id != null && Request.Cookies[CookieModel.CookieName] != null && Request.Cookies[CookieModel.CookieName].Value != null)
-                ShoppingChart.getInstance().DelProductFromChart(id, CookieModel.GetCartName(Request.Cookies[CookieModel.CookieName].Value));
+            string cookieValue = null;
+
+            if (Request.Cookies[CookieModel.CookieName] != null)
+            {
+                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+
+                if (cookieValue != null)
+                    ShoppingChart.getInstance().DelProductFromChart(id, cookieValue);
+
+            }
 
             Request.SaveAs(Server.MapPath("~/remove.txt"), true);
 

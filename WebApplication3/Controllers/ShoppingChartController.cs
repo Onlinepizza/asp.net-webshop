@@ -54,11 +54,25 @@ namespace WebApplication3.Controllers
 
         public ActionResult Index()
         {
+            ViewData["TotalExclTax"] = 0;
+            ViewData["TotalInclTax"] = 0;
 
-            ViewData["TotalExclTax"] = ShoppingChart.getInstance().TotalSumExclTax();
-            ViewData["TotalInclTax"] = ShoppingChart.getInstance().TotalSumInclTax();
+            string cookieValue = null;
 
-            return View(ShoppingChart.getInstance());
+            if (Request.Cookies[CookieModel.CookieName] != null)
+            {
+                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+
+                if (cookieValue != null)
+                {
+                    ViewData["TotalExclTax"] = ShoppingChart.getInstance().TotalSumExclTax(cookieValue);
+                    ViewData["TotalInclTax"] = ShoppingChart.getInstance().TotalSumInclTax(cookieValue);
+                }
+
+            }
+
+
+            return View(ShoppingChart.getInstance().GetEnumerator(cookieValue));
         }
 
 
@@ -69,11 +83,14 @@ namespace WebApplication3.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Product product = db.Products.Find(id);
+
             if (product == null)
             {
                 return HttpNotFound();
             }
+
             ViewData["action"] = "Index";
             ViewData["controller"] = "ShoppingChart";
 
@@ -82,14 +99,41 @@ namespace WebApplication3.Controllers
 
         public ActionResult LastAddedProduct()
         {
-            return View(ShoppingChart.getInstance().LastAddedProduct());
+            ChartObject chartObject = new ChartObject();
+            string cookieValue = null;
+
+            if (Request.Cookies[CookieModel.CookieName] != null)
+            {
+                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+
+                if (cookieValue != null)
+                {
+                    chartObject = ShoppingChart.getInstance().LastAddedProduct(cookieValue);
+                }
+            }
+                return View(chartObject);
+            
         }
 
         public ActionResult CheckoutProducts()
         {
-            string answer = ShoppingChart.getInstance().CheckoutProducts();
+            string answer = "";
+
+            string cookieValue = null;
+
+            if (Request.Cookies[CookieModel.CookieName] != null)
+            {
+                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+
+                if (cookieValue != null)
+                    if (ShoppingChart.getInstance().CheckoutProducts(cookieValue))
+                        answer = "All went well: " + ShoppingChart.getInstance().GetOrderMessage(cookieValue);
+                    else
+                        answer = "Something went wrong: " + ShoppingChart.getInstance().GetOrderMessage(cookieValue);
+            }
 
             ViewData["answer"] = answer;
+
             return View();
         }
     }
