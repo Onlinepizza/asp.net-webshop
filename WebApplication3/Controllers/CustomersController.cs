@@ -97,8 +97,8 @@ namespace WebApplication3.Controllers
 
         public void Buy(int id)
         {
-            
 
+            
             var lines = cart.GetEnumerator();
             if (lines.Current.Count > 0 && IsOrderPossible())
             {
