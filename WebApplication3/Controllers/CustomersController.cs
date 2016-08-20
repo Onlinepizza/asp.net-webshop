@@ -127,6 +127,9 @@ namespace WebApplication3.Controllers
                 {
                     Orderline Oline = new Orderline();
                     Oline.Antal = chartObj.Count;
+
+                    db.Products.Find(chartObj.Id).InStock -= chartObj.Count;
+
                     Oline.ArtID = chartObj.Id;
                     Oline.OrderID = orderId;
                     db.Orderlines.Add(Oline);
