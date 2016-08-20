@@ -206,14 +206,21 @@ namespace WebApplication3.Controllers
         }
 
 
-        public ActionResult Buy(int? id, string Quantity)
+        public ActionResult Buy(int id, string Quantity)
         {
-           
-            if (id != null && Quantity != null)
+
+
+            int parsedQuantity = 0;
+            int.TryParse(Quantity, out parsedQuantity);
+
+            string cookieValue = null;
+
+            if (Request.Cookies[CookieModel.CookieName] != null)
             {
-                int result = 0;
-                int.TryParse(Quantity, out result);
-                ShoppingChart.getInstance().AddProductToChart(id, result);
+                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+
+                if (cookieValue != null)
+                    ShoppingChart.getInstance().AddProductToChart(id, parsedQuantity, cookieValue);
             }
 
             Request.SaveAs(Server.MapPath("~/buy.txt"), true);
@@ -221,12 +228,18 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Shopping", "Products");
         }
 
-        public ActionResult RemoveFromChart(int? id)
+        public ActionResult RemoveFromChart(int id)
         {
 
-            if (id != null)
+            string cookieValue = null;
+
+            if (Request.Cookies[CookieModel.CookieName] != null)
             {
-                ShoppingChart.getInstance().DelProductFromChart(id);
+                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+
+                if (cookieValue != null)
+                    ShoppingChart.getInstance().DelProductFromChart(id, cookieValue);
+
             }
 
             Request.SaveAs(Server.MapPath("~/remove.txt"), true);
