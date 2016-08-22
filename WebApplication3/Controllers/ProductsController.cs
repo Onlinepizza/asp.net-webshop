@@ -148,6 +148,7 @@ namespace WebApplication3.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Product product = db.Products.Find(id);
+            product.Price = product.costPrice * 2;
             if (product == null)
             {
                 return HttpNotFound();
@@ -164,6 +165,7 @@ namespace WebApplication3.Controllers
         {
             if (ModelState.IsValid)
             {
+                product.Price = product.costPrice * 2;
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
