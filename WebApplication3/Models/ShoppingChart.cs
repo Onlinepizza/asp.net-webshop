@@ -129,7 +129,32 @@ namespace WebApplication3.Models
 
                 if (allCarts.ContainsKey(cartName))
                     if (allCarts[cartName].ContainsKey(id))
-                        allCarts[cartName].Remove(id);
+                {
+                    //FÖR ATT LÄGGA TILL Product i LAGER IGEN OM MAN TAR BORT DEN UR VARUKORGEN, MEN KANKSE INTE BEHÖVS?
+                    /*
+                    foreach (ChartObject item in allCarts[cartName].Values)
+                    {
+                        complementaryCarts[cartName].prodRow = db.Products.Find(item.Id);
+
+                        if (complementaryCarts[cartName].prodRow != null)
+                        {
+                            db.Products.Find(item.Id).InStock += item.Count;
+                            db.Database.ExecuteSqlCommand(
+                            "UPDATE Products SET InStock=@num WHERE ProductID=@ID;"
+                            , new SqlParameter("@num", db.Products.Find(item.Id).InStock), new SqlParameter("@ID", item.Id));
+                        }
+                    }
+                    */
+                    allCarts[cartName].Remove(id);
+                }
+                        
+
+
+
+
+            
+
+
         }
 
 

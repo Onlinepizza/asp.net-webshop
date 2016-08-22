@@ -50,14 +50,10 @@ namespace WebApplication3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CustomerID,FName,LName,Adress,PostNr,City,Email,Phone,Comment")] Customer customer)
         {
-
-
+            
             if (ModelState.IsValid)
             {
-                customer.FName = formatString(customer.FName);
-                customer.LName = formatString(customer.LName);
-                customer.Adress = formatString(customer.Adress);
-                customer.City = formatString(customer.City);
+                customer = formatUserInput(customer);
                 db.Customers.Add(customer);
                 db.SaveChanges();
 
@@ -68,6 +64,19 @@ namespace WebApplication3.Controllers
             return View(customer);
         }
 
+        //Format the user input strings when creating or editing user
+        public Customer formatUserInput(Customer customer)
+        {
+
+            customer.FName = formatString(customer.FName);
+            customer.LName = formatString(customer.LName);
+            customer.Adress = formatString(customer.Adress);
+            customer.City = formatString(customer.City);
+            customer.Email = customer.Email.ToLower();
+            return customer;
+        }
+
+        //format the current string
         public string formatString(string theString)
         {
           
@@ -96,11 +105,7 @@ namespace WebApplication3.Controllers
 
                 if (CookieModel.IsCookieValid(Request, out cookieValue) && ModelState.IsValid)
                 {
-
-                customer.FName = formatString(customer.FName);
-                customer.LName = formatString(customer.LName);
-                customer.Adress = formatString(customer.Adress);
-                customer.City = formatString(customer.City);
+                customer = formatUserInput(customer);
                 db.Customers.Add(customer);
                     db.SaveChanges();
                     try
