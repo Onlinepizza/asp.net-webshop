@@ -54,6 +54,10 @@ namespace WebApplication3.Controllers
 
             if (ModelState.IsValid)
             {
+                customer.FName = formatString(customer.FName);
+                customer.LName = formatString(customer.LName);
+                customer.Adress = formatString(customer.Adress);
+                customer.City = formatString(customer.City);
                 db.Customers.Add(customer);
                 db.SaveChanges();
 
@@ -62,6 +66,22 @@ namespace WebApplication3.Controllers
             }
 
             return View(customer);
+        }
+
+        public string formatString(string theString)
+        {
+          
+            string head;
+            string tail;
+
+            head = theString[0].ToString();
+            head = head.ToUpper();
+
+            tail = theString.Substring(1);
+            tail = tail.ToLower();
+
+
+            return string.Concat(head, tail);
         }
 
         public ActionResult CreateOrder()
