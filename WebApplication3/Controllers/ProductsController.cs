@@ -127,10 +127,11 @@ namespace WebApplication3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductID,ArtName,Descr,Price,InStock")] Product product)
+        public ActionResult Create([Bind(Include = "ProductID,ArtName,Descr,Price,InStock, costPrice")] Product product)
         {
             if (ModelState.IsValid)
             {
+                product.Price = product.costPrice * 2;
                 db.Products.Add(product);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -159,7 +160,7 @@ namespace WebApplication3.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductID,ArtName,Descr,Price,InStock")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductID,ArtName,Descr,Price,InStock, costPrice")] Product product)
         {
             if (ModelState.IsValid)
             {

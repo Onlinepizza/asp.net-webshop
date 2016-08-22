@@ -17,6 +17,8 @@ namespace WebApplication3.Models
         public int Price { get; set; }
         public int InStock { get; set; }
 
+        public int costPrice { get; set; }
+
     }
 
    

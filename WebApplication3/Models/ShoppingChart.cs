@@ -12,6 +12,8 @@ namespace WebApplication3.Models
 
         public double Price { get; set; }
 
+        public double costPrice { get; set; }
+
         public int Id { get; set; }
 
         public int Count { get; set; }
