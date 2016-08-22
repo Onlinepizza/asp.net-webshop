@@ -1,253 +1,4 @@
-﻿//using System.Collections;
-//using System.Collections.Generic;
-//using System.Data.Entity;
-//using System.Data.SqlClient;
-//using System.Linq;
-
-//namespace WebApplication3.Models
-//{
-//    public class ChartObject
-//    {
-//        public string ProdName { get; set; }
-
-//        public double Price { get; set; }
-
-//        public int Id { get; set; }
-
-//        public int Count { get; set; }
-
-//        public double ObjectTotal { get; set; }
-
-//    }
-
-//    public class ShoppingChart: IEnumerable<ChartObject>
-//    {
-//        private static ShoppingChart shoppingChart = new ShoppingChart();
-
-//        private TheDatabase db = new TheDatabase();
-//        private static List<ChartObject> theChart = new List<ChartObject>();
-//        private static Dictionary<string, List<ChartObject>> allCarts;
-
-//        private Product product;
-//        private ChartObject lastInserted;
-//        private double ShoppingChartTotalExclTax;
-//        private double ShoppingChartTotalInclTax;
-
-//        public double total { get; set; }
-
-
-//        private ShoppingChart()
-//        {
-//            allCarts = new Dictionary<string, List<ChartObject>>();
-
-//            lastInserted = new ChartObject();
-//            this.total = 0;
-//        }
-
-//        public static ShoppingChart getInstance()
-//        {
-//            return shoppingChart;
-
-//        }
-
-//        public void AddProductToChart(int? id, int? count, string encodedCookieValue)
-//        {
-
-//            string cartName = CookieModel.GetCartName(encodedCookieValue);
-
-//            if (!allCarts.ContainsKey(cartName))
-//                allCarts.Add(cartName, new List<ChartObject>());
-
-//            if (id != null && count != null)
-
-//            {
-//                if (!IsProductInChart(id, cartName)){
-//                    ChartObject chartObject = new ChartObject();
-
-//                product = db.Products.Find(id);
-
-//                chartObject.Id = (int)id;
-//                chartObject.ProdName = product.ArtName;
-//                chartObject.Price = product.Price;
-//                chartObject.Count = (int)count;
-//                chartObject.ObjectTotal = chartObject.Price * chartObject.Count;
-
-
-//                saveLastProduct(chartObject);
-
-//                theChart.Add(chartObject);
-
-//                this.total += chartObject.ObjectTotal;
-
-//                    }
-//                else
-//                {
-//                    foreach (var prod in theChart)
-//                    {
-//                        if (prod.Id == id)
-//                        {
-//                            prod.Count += (int)count;
-//                            prod.ObjectTotal += prod.Price * (int)count;
-//                            this.total += prod.Price * (int)count;
-
-//                            saveLastProduct(prod);
-//                        }
-//                    }
-//                }
-//                }
-//        }
-
-//        public void  DelProductFromChart(int? id, string encodedCookieValue)
-//        {
-//            if (id != null)
-//            {
-
-//                try
-//                {
-//                    foreach (var prod in theChart)
-//                    {
-//                        if (prod.Id == id)
-//                        {
-//                            this.total -= prod.ObjectTotal;
-//                            theChart.Remove(prod);
-//                        }
-//                    }
-//                }
-//                catch (System.InvalidOperationException)
-//                {
-//                    ;
-//                }
-
-
-//            }
-
-//        }
-
-//        public bool IsProductInChart(int? id, string cartName)
-//        {
-
-//            bool isInChart = false;
-
-//            isInChart = id != null && allCarts.ContainsKey(cartName) && allCarts[cartName].Exists(a => a.Id == id);
-
-//            return isInChart;
-
-//        }
-
-
-//        public IEnumerator<ChartObject> GetEnumerator()
-//        {
-//            return theChart.GetEnumerator();
-//        }
-
-//        IEnumerator IEnumerable.GetEnumerator()
-//        {
-//            return theChart.GetEnumerator();
-//        }
-
-//        public ChartObject LastAddedProduct()
-//        {
-//            return lastInserted;
-//        }
-
-//        private void saveLastProduct(ChartObject obj)
-//        {
-//            lastInserted = obj;
-//        }
-
-//        public double TotalSumExclTax()
-//        {
-//            ShoppingChartTotalInclTax = 0;
-//            ShoppingChartTotalExclTax = 0;
-
-//            foreach (var item in theChart)
-//            {
-//                ShoppingChartTotalExclTax += item.ObjectTotal;
-
-//            }
-
-//            ShoppingChartTotalInclTax = ShoppingChartTotalExclTax * 1.25;
-
-//            return ShoppingChartTotalExclTax;
-//        }
-
-//        public double TotalSumInclTax()
-//        {
-
-//            return ShoppingChartTotalExclTax * 1.25;
-//        }
-
-//        public string CheckoutProducts()
-//        {
-//            string answer = "";
-
-//            List<ChartObject> databaseChart = new List<ChartObject>();
-
-//            foreach (var item in ShoppingChart.getInstance())
-//            {
-//                ChartObject obj = new ChartObject();
-
-//                Product row = db.Products.Find(item.Id);
-
-//                if (row != null )
-//                {
-//                    obj.Id = item.Id;
-//                    obj.Count = row.InStock;
-
-//                    databaseChart.Add(obj);
-//                }
-//            }
-
-
-//            DbContextTransaction myTrans;
-//            myTrans = db.Database.BeginTransaction();
-
-//            ChartObject dbchartobj = null;
-
-//            try
-//            {
-//                //db.Database.ExecuteSqlCommand(
-//                //    "INSERT INTO Products (ArtName, InStock, Price, Descr) VALUES('Prototype', 7, 88, @descr); SELECT * FROM Dejligt;"
-//                //    , new SqlParameter("@descr", "An even newer product"));
-//                foreach (var item in ShoppingChart.getInstance())
-//                {
-//                    dbchartobj = databaseChart.Find(m => m.Id == item.Id);
-
-//                    if (dbchartobj != null)
-//                    {
-//                        db.Database.ExecuteSqlCommand(
-//                        "UPDATE Products SET InStock=@num WHERE ProductID=@ID;"
-//                        , new SqlParameter("@num", dbchartobj.Count - item.Count), new SqlParameter("@ID", dbchartobj.Id));
-//                    }
-//                }
-
-//                myTrans.Commit();
-//            }
-//            catch (System.Exception e)
-//            {
-//                answer = e.ToString();
-//                myTrans.Rollback();
-//            }
-//            finally
-//            {
-//                myTrans.Dispose();
-//            }
-
-//            if (answer != "")
-//                return answer;
-
-//            emptyChart();
-//            return "Finished Checkout successfully";
-//        }
-
-//        public void emptyChart()
-//        {
-//            theChart.Clear();
-//        }
-//    }
-//}
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.SqlClient;
@@ -298,7 +49,7 @@ namespace WebApplication3.Models
     {
         private static ShoppingChart shoppingChart = new ShoppingChart();
         
-        private TheDatabase db = new TheDatabase();
+        private static TheDatabase db = new TheDatabase();
         private static Dictionary<string, Dictionary<int, ChartObject>> allCarts;
         private static Dictionary<string, ChartComplementary> complementaryCarts;
 
@@ -314,7 +65,7 @@ namespace WebApplication3.Models
 
         }
 
-        public void InitializeShoppingChart(string encodedCookieValue)
+        public static void InitializeShoppingChart(string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 
@@ -325,7 +76,7 @@ namespace WebApplication3.Models
             }
         }
 
-        public void AddProductToChart(int id, int count, string encodedCookieValue)
+        public static void AddProductToChart(int id, int count, string encodedCookieValue)
         {
 
             string cartName = CookieModel.GetCartName(encodedCookieValue);
@@ -342,7 +93,7 @@ namespace WebApplication3.Models
         }
 
 
-        private void updateProductInCart(string cartName, int id, int count)
+        private static void updateProductInCart(string cartName, int id, int count)
         {
             ChartObject chartObject = allCarts[cartName][id];
 
@@ -352,7 +103,7 @@ namespace WebApplication3.Models
             saveLastProduct(chartObject, cartName);
         }
 
-        private void saveNewProductInCart(string cartName, int id, int count)
+        private static void saveNewProductInCart(string cartName, int id, int count)
         {
             Product product = db.Products.Find(id);
             ChartObject chartObject = allCarts[cartName][id];
@@ -370,7 +121,7 @@ namespace WebApplication3.Models
             }
         }
 
-        public void DelProductFromChart(int id, string encodedCookieValue)
+        public static void DelProductFromChart(int id, string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 
@@ -380,7 +131,7 @@ namespace WebApplication3.Models
         }
 
 
-        public IEnumerator<ChartObject> GetEnumerator(string encodedCookieValue)
+        public static IEnumerator<ChartObject> GetEnumerator(string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 
@@ -402,7 +153,7 @@ namespace WebApplication3.Models
         }
 
     */
-        public ChartObject LastAddedProduct(string encodedCookieValue)
+        public static ChartObject LastAddedProduct(string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 
@@ -412,12 +163,12 @@ namespace WebApplication3.Models
             return new ChartObject();
         }
 
-        private void saveLastProduct(ChartObject obj, string cartName)
+        private static void saveLastProduct(ChartObject obj, string cartName)
         {
             complementaryCarts[cartName].lastInserted = obj;
         }
 
-        public double TotalSumExclTax(string encodedCookieValue)
+        public static double TotalSumExclTax(string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 
@@ -439,7 +190,7 @@ namespace WebApplication3.Models
             return 0;
         }
 
-        public double TotalSumInclTax(string encodedCookieValue)
+        public static double TotalSumInclTax(string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 
@@ -449,7 +200,7 @@ namespace WebApplication3.Models
             return 0;
         }
 
-        public bool CheckoutProducts(string encodedCookieValue)
+        public static bool CheckoutProducts(string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 
@@ -507,7 +258,7 @@ namespace WebApplication3.Models
             }
         }
 
-        public void emptyChart(string encodedCookieValue)
+        public static void emptyChart(string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 
@@ -515,7 +266,7 @@ namespace WebApplication3.Models
                 allCarts[cartName].Clear();
         }
 
-        public List<ChartObject> GetChartObjects(string encodedCookieValue)
+        public static List<ChartObject> GetChartObjects(string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 
@@ -525,7 +276,7 @@ namespace WebApplication3.Models
             return null;
         }
 
-        public string GetOrderMessage(string encodedCookieValue)
+        public static string GetOrderMessage(string encodedCookieValue)
         {
             string cartName = CookieModel.GetCartName(encodedCookieValue);
 

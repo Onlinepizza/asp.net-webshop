@@ -212,7 +212,7 @@ namespace WebApplication3.Controllers
             string cookieValue;
 
             if (CookieModel.IsCookieValid(Request, out cookieValue) && int.TryParse(Quantity, out parsedQuantity))
-                ShoppingChart.getInstance().AddProductToChart(id, parsedQuantity, cookieValue);
+                ShoppingChart.AddProductToChart(id, parsedQuantity, cookieValue);
 
             return RedirectToAction("Shopping", "Products");
         }
@@ -222,7 +222,7 @@ namespace WebApplication3.Controllers
             string cookieValue;
 
             if (CookieModel.IsCookieValid(Request, out cookieValue))
-                ShoppingChart.getInstance().DelProductFromChart(id, cookieValue);
+                ShoppingChart.DelProductFromChart(id, cookieValue);
 
             return RedirectToAction("Index", "ShoppingChart");
         }
