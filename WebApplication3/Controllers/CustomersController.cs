@@ -112,11 +112,11 @@ namespace WebApplication3.Controllers
 
         private void SaveOrderLines(int orderId, string encodedCookieValue)
         {
+
             foreach (ChartObject chartObj in ShoppingChart.GetChartObjects(encodedCookieValue))
             {
                 Orderline Oline = new Orderline();
                 Oline.Antal = chartObj.Count;
-
                 Oline.ArtID = chartObj.Id;
                 Oline.OrderID = orderId;
                 db.Orderlines.Add(Oline);
@@ -130,6 +130,7 @@ namespace WebApplication3.Controllers
 
             if (ShoppingChart.CheckoutProducts(encodedCookieValue))
             {
+           
                 createNewOrder(customerId, out orderId);
                 SaveOrderLines(orderId, encodedCookieValue);
                 ShoppingChart.emptyChart(encodedCookieValue);

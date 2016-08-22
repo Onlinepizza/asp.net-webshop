@@ -244,7 +244,7 @@ namespace WebApplication3.Models
                         if (complementaryCarts[cartName].message.OrderMessage != "")
                             return false;
 
-                        emptyChart(encodedCookieValue);
+                        
                         complementaryCarts[cartName].message.OrderMessage = "Finished Checkout successfully";
                         return true;
 
