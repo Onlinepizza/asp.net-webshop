@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -215,7 +216,20 @@ namespace WebApplication3.Controllers
             string cookieValue;
 
             if (CookieModel.IsCookieValid(Request, out cookieValue) && int.TryParse(Quantity, out parsedQuantity))
+            {
                 ShoppingChart.AddProductToChart(id, parsedQuantity, cookieValue);
+                //ta bort från lager/ reservera
+                if (db.Products.Find(id) != null)
+                {
+                    db.Database.ExecuteSqlCommand(
+                    "UPDATE Products SET InStock=@num WHERE ProductID=@ID;"
+                    , new SqlParameter("@num", db.Products.Find(id).InStock - parsedQuantity), new SqlParameter("@ID", id));
+                }
+
+            }
+
+
+
 
             return RedirectToAction("Shopping", "Products");
         }

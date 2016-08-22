@@ -34,6 +34,11 @@ namespace WebApplication3.Controllers
             ShoppingChart.InitializeShoppingChart(cookieValue);
         }
 
+        private void HandleOnClose()
+        {
+            //lägg tillbaks produkter i stock och avsluta applikationen
+        }
+
         //GET: Order
        
     }
