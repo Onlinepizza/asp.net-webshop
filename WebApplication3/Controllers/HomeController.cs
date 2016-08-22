@@ -31,7 +31,7 @@ namespace WebApplication3.Controllers
 
             cookieValue = Request.Cookies[CookieModel.CookieName].Value;
 
-            ShoppingChart.getInstance().InitializeShoppingChart(cookieValue);
+            ShoppingChart.InitializeShoppingChart(cookieValue);
         }
 
         //GET: Order

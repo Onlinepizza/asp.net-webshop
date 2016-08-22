@@ -15,7 +15,6 @@ namespace WebApplication3.Controllers
     public class CustomersController : Controller
     {
         private TheDatabase db = new TheDatabase();
-        private ShoppingChart cart = ShoppingChart.getInstance();
         
         // GET: Customers
         public ActionResult Index()
@@ -73,11 +72,9 @@ namespace WebApplication3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateOrder([Bind(Include = "CustomerID,FName,LName,Adress,PostNr,City,Email,Phone,Comment")] Customer customer)
         {
-            if (Request.Cookies[CookieModel.CookieName] != null)
-            {
-                string cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+            string cookieValue;
 
-                if (cookieValue != null && ModelState.IsValid)
+                if (CookieModel.IsCookieValid(Request, out cookieValue) && ModelState.IsValid)
                 {
 
                     db.Customers.Add(customer);
@@ -95,8 +92,6 @@ namespace WebApplication3.Controllers
                     //return RedirectToAction("Index");
                 }
 
-                
-            }
             return View(customer);
         }
 
@@ -115,64 +110,52 @@ namespace WebApplication3.Controllers
 
         }
 
+        private void SaveOrderLines(int orderId, string encodedCookieValue)
+        {
+            foreach (ChartObject chartObj in ShoppingChart.GetChartObjects(encodedCookieValue))
+            {
+                Orderline Oline = new Orderline();
+                Oline.Antal = chartObj.Count;
+
+                Oline.ArtID = chartObj.Id;
+                Oline.OrderID = orderId;
+                db.Orderlines.Add(Oline);
+                db.SaveChanges();
+            }
+        }
+
         public void Buy(int customerId, string encodedCookieValue)
         {
             int orderId = 0;
 
-            createNewOrder(customerId, out orderId);
-
-            if (IsOrderPossible(encodedCookieValue))
+            if (ShoppingChart.CheckoutProducts(encodedCookieValue))
             {
-                foreach (ChartObject chartObj in cart.GetChartObjects(encodedCookieValue))
-                {
-                    Orderline Oline = new Orderline();
-                    Oline.Antal = chartObj.Count;
-                    db.Products.Find(chartObj.Id).InStock -= chartObj.Count;
-                    Oline.ArtID = chartObj.Id;
-                    Oline.OrderID = orderId;
-                    db.Orderlines.Add(Oline);
-                    db.SaveChanges();
-                }
-                ShoppingChart.getInstance().emptyChart(encodedCookieValue);
-                ShoppingChart.getInstance().LastAddedProduct(null);
+                createNewOrder(customerId, out orderId);
+                SaveOrderLines(orderId, encodedCookieValue);
+                ShoppingChart.emptyChart(encodedCookieValue);
             }
             else
                 throw new InvalidOperationException();
+
         }
 
-        public bool IsOrderPossible(string encodedCookieValue)
-        {
-            Product prod;
+        //public bool IsOrderPossible(string encodedCookieValue)
+        //{
+        //    Product prod;
 
-            foreach (ChartObject chartObj in cart.GetChartObjects(encodedCookieValue))
-            {
-               prod = db.Products.Find(chartObj.Id);
+        //    foreach (ChartObject chartObj in ShoppingChart.GetChartObjects(encodedCookieValue))
+        //    {
+        //       prod = db.Products.Find(chartObj.Id);
 
-                if (prod == null)
-                    return false;
+        //        if (prod == null)
+        //            return false;
 
-                if (prod.InStock < chartObj.Count)
-                    return false;
-            }
+        //        if (prod.InStock < chartObj.Count)
+        //            return false;
+        //    }
 
-            return true;
-        }
-
-        /* private int createOrder(Customer customer)
-         {
-             Order order = new Order();
-
-             order.CustomerID = customer.CustomerID;
-
-             db.Orders.Add(order);
-
-             db.SaveChanges();
-
-             DbSqlQuery<Order> justSavedOrder = db.Orders.SqlQuery("SELECT * FROM Orders WHERE CustomerID=@custid;", new SqlParameter("@custid", customer.CustomerID));
-
-             return justSavedOrder.First().OrderID;
-
-         }*/
+        //    return true;
+        //}
 
         // GET: Customers/Edit/5
         public ActionResult Edit(int? id)
