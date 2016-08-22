@@ -73,11 +73,9 @@ namespace WebApplication3.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateOrder([Bind(Include = "CustomerID,FName,LName,Adress,PostNr,City,Email,Phone,Comment")] Customer customer)
         {
-            if (Request.Cookies[CookieModel.CookieName] != null)
-            {
-                string cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+            string cookieValue;
 
-                if (cookieValue != null && ModelState.IsValid)
+                if (CookieModel.IsCookieValid(Request, out cookieValue) && ModelState.IsValid)
                 {
 
                     db.Customers.Add(customer);
@@ -95,8 +93,6 @@ namespace WebApplication3.Controllers
                     //return RedirectToAction("Index");
                 }
 
-                
-            }
             return View(customer);
         }
 

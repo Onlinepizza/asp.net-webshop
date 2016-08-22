@@ -51,5 +51,20 @@ namespace WebApplication3.Models
 
             return null;
         }
+
+        public static bool IsCookieValid(HttpRequestBase theRequest, out string encodedCookieValue)
+        {
+            encodedCookieValue = null;
+
+            if (theRequest.Cookies[CookieModel.CookieName] != null)
+            {
+                encodedCookieValue = theRequest.Cookies[CookieModel.CookieName].Value;
+
+                if (encodedCookieValue != null)
+                    return true;
+            }
+
+            return false;
+        }
     }
 }

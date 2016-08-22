@@ -208,41 +208,23 @@ namespace WebApplication3.Controllers
 
         public ActionResult Buy(int id, string Quantity)
         {
-
-
             int parsedQuantity = 0;
             int.TryParse(Quantity, out parsedQuantity);
 
-            string cookieValue = null;
+            string cookieValue;
 
-            if (Request.Cookies[CookieModel.CookieName] != null)
-            {
-                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
-
-                if (cookieValue != null)
-                    ShoppingChart.getInstance().AddProductToChart(id, parsedQuantity, cookieValue);
-            }
-
-            Request.SaveAs(Server.MapPath("~/buy.txt"), true);
+            if (CookieModel.IsCookieValid(Request, out cookieValue))
+                ShoppingChart.getInstance().AddProductToChart(id, parsedQuantity, cookieValue);
 
             return RedirectToAction("Shopping", "Products");
         }
 
         public ActionResult RemoveFromChart(int id)
         {
+            string cookieValue;
 
-            string cookieValue = null;
-
-            if (Request.Cookies[CookieModel.CookieName] != null)
-            {
-                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
-
-                if (cookieValue != null)
-                    ShoppingChart.getInstance().DelProductFromChart(id, cookieValue);
-
-            }
-
-            Request.SaveAs(Server.MapPath("~/remove.txt"), true);
+            if (CookieModel.IsCookieValid(Request, out cookieValue))
+                ShoppingChart.getInstance().DelProductFromChart(id, cookieValue);
 
             return RedirectToAction("Index", "ShoppingChart");
         }

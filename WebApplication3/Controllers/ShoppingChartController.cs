@@ -57,20 +57,13 @@ namespace WebApplication3.Controllers
             ViewData["TotalExclTax"] = 0;
             ViewData["TotalInclTax"] = 0;
 
-            string cookieValue = null;
+            string cookieValue;
 
-            if (Request.Cookies[CookieModel.CookieName] != null)
+            if (CookieModel.IsCookieValid(Request, out cookieValue))
             {
-                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
-
-                if (cookieValue != null)
-                {
-                    ViewData["TotalExclTax"] = ShoppingChart.getInstance().TotalSumExclTax(cookieValue);
-                    ViewData["TotalInclTax"] = ShoppingChart.getInstance().TotalSumInclTax(cookieValue);
-                }
-
+                ViewData["TotalExclTax"] = ShoppingChart.getInstance().TotalSumExclTax(cookieValue);
+                ViewData["TotalInclTax"] = ShoppingChart.getInstance().TotalSumInclTax(cookieValue);
             }
-
 
             return View(ShoppingChart.getInstance().GetEnumerator(cookieValue));
         }
@@ -100,37 +93,25 @@ namespace WebApplication3.Controllers
         public ActionResult LastAddedProduct()
         {
             ChartObject chartObject = new ChartObject();
-            string cookieValue = null;
+            string cookieValue;
 
-            if (Request.Cookies[CookieModel.CookieName] != null)
-            {
-                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
+            if (CookieModel.IsCookieValid(Request, out cookieValue))
+                chartObject = ShoppingChart.getInstance().LastAddedProduct(cookieValue);
 
-                if (cookieValue != null)
-                {
-                    chartObject = ShoppingChart.getInstance().LastAddedProduct(cookieValue);
-                }
-            }
-                return View(chartObject);
-            
+            return View(chartObject);
         }
 
         public ActionResult CheckoutProducts()
         {
             string answer = "";
 
-            string cookieValue = null;
+            string cookieValue;
 
-            if (Request.Cookies[CookieModel.CookieName] != null)
-            {
-                cookieValue = Request.Cookies[CookieModel.CookieName].Value;
-
-                if (cookieValue != null)
-                    if (ShoppingChart.getInstance().CheckoutProducts(cookieValue))
+            if (CookieModel.IsCookieValid(Request, out cookieValue))
+                if (ShoppingChart.getInstance().CheckoutProducts(cookieValue))
                         answer = "All went well: " + ShoppingChart.getInstance().GetOrderMessage(cookieValue);
                     else
                         answer = "Something went wrong: " + ShoppingChart.getInstance().GetOrderMessage(cookieValue);
-            }
 
             ViewData["answer"] = answer;
 
