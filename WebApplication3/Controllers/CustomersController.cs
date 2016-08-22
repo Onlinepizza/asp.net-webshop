@@ -97,7 +97,11 @@ namespace WebApplication3.Controllers
                 if (CookieModel.IsCookieValid(Request, out cookieValue) && ModelState.IsValid)
                 {
 
-                    db.Customers.Add(customer);
+                customer.FName = formatString(customer.FName);
+                customer.LName = formatString(customer.LName);
+                customer.Adress = formatString(customer.Adress);
+                customer.City = formatString(customer.City);
+                db.Customers.Add(customer);
                     db.SaveChanges();
                     try
                     {
