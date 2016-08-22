@@ -62,9 +62,8 @@ namespace WebApplication3.Controllers
         public ActionResult OrderSearch(string searchString)
         {
             int id;
-            Int32.TryParse(searchString, out id);
 
-            if (id == null)
+            if (!Int32.TryParse(searchString, out id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -73,9 +72,7 @@ namespace WebApplication3.Controllers
             var lines = from l in db.Orderlines
                         select l;
 
-
             lines = lines.Where(s => s.OrderID == id);
-
 
             return View(lines);
         }

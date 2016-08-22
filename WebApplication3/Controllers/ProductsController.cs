@@ -209,11 +209,9 @@ namespace WebApplication3.Controllers
         public ActionResult Buy(int id, string Quantity)
         {
             int parsedQuantity = 0;
-            int.TryParse(Quantity, out parsedQuantity);
-
             string cookieValue;
 
-            if (CookieModel.IsCookieValid(Request, out cookieValue))
+            if (CookieModel.IsCookieValid(Request, out cookieValue) && int.TryParse(Quantity, out parsedQuantity))
                 ShoppingChart.getInstance().AddProductToChart(id, parsedQuantity, cookieValue);
 
             return RedirectToAction("Shopping", "Products");
