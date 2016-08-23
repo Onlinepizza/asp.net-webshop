@@ -247,8 +247,10 @@ namespace WebApplication3.Models
                             foreach (ChartObject item in allCarts[cartName].Values)
                             {
                                 complementaryCarts[cartName].prodRow = db.Products.Find(item.Id);
+                            if (item.Count > complementaryCarts[cartName].prodRow.InStock)
+                                throw new System.Exception();
 
-                                if (complementaryCarts[cartName].prodRow != null)
+                            if (complementaryCarts[cartName].prodRow != null)
                                 {
                                     db.Database.ExecuteSqlCommand(
                                     "UPDATE Products SET InStock=@num WHERE ProductID=@ID;"
