@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections;
 using WebApplication3.Models;
+using System.Web.Services;
+using System.Web.Script.Services;
+using System.Web.UI;
 
 namespace WebApplication3.Controllers
 {
@@ -34,10 +37,12 @@ namespace WebApplication3.Controllers
             ShoppingChart.InitializeShoppingChart(cookieValue);
         }
 
-        private void HandleOnClose()
-        {
-            //lägg tillbaks produkter i stock och avsluta applikationen
-        }
+        //[ScriptMethod, WebMethod]
+        //public static void HandleClose()
+        //{
+        //    System.Diagnostics.Debug.WriteLine("success");
+        //    //lägg tillbaks produkter i stock och avsluta applikationen
+        //}
 
         //GET: Order
        
