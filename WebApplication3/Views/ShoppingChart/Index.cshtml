@@ -1,0 +1,102 @@
+﻿@model IEnumerable<WebApplication3.Models.ChartObject>
+
+    @{
+        Layout = "~/Views/Shared/_Layout_shoppingChart.cshtml";
+    }
+
+    <table class="table">
+
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProdName)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+
+    
+
+        <th>
+            @Html.DisplayNameFor(model => model.Count)
+        </th>
+
+        <th>
+            Cost:
+        </th>
+
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+                <tr>
+
+                    <td>
+                        @Html.ActionLink(item.ProdName, "CustomerDetails", new { id = item.Id }, "Products")
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => item.Id)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => item.Price)
+                    </td>
+
+                
+                    <td>
+                        @Html.DisplayFor(model => item.Count)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => item.ObjectTotal)
+                    </td>
+
+                   @using (Html.BeginForm())
+                   {
+
+                       var id_t = "ChartItem" + item.Id;
+
+                       string removeButton = "<input type=\"button\" id=\"" + @id_t + "\" name=\"" + @id_t + "\" value=\"Remove\" onclick=\"changeUrl('"
+                              + Url.Action("RemoveFromChart", "Products") + "/" + item.Id + "');" + "\"/>";
+
+                    <td>
+                        @Html.Raw(removeButton)
+                    </td>
+
+                   }
+
+</tr>
+}
+
+        <tr>
+
+            <td><b>Total excl tax:</b>
+            <b><br />Total incl tax: </b></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <b> @ViewData["TotalExclTax"] </b>
+                <b><br />@ViewData["TotalInclTax"] </b>
+            </td>
+
+        </tr>
+
+    </table>
+
+
+
+<script>
+
+    function changeUrl(html) {
+
+            newhref = html;
+            
+            window.location.href = newhref
+}
+</script>

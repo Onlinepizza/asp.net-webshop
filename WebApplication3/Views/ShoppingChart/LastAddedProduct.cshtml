@@ -1,0 +1,31 @@
+﻿@model WebApplication3.Models.ChartObject
+
+@{
+    Layout = "~/Views/Shared/_Layout_lean.cshtml";
+}
+
+<table class="table">
+
+    <tr>
+        <td>
+            Last item: Id: @Html.DisplayFor(model => model.Id)
+        </td>
+
+        <td>
+            Name: @Html.DisplayFor(model => model.ProdName)
+        </td>
+
+        @*<td>
+            @Html.DisplayFor(model => model.Price)
+        </td>*@
+
+        <td>
+            Count: @Html.DisplayFor(model => model.Count)
+        </td>
+
+        <td>
+            Price: @Html.DisplayFor(model => model.ObjectTotal)
+        </td>
+
+    </tr>
+</table>

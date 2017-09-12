@@ -1,0 +1,10 @@
+GET /Products/Buy/1?Quantity=2 HTTP/1.1
+Connection: keep-alive
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Encoding: gzip, deflate
+Accept-Language: sv-SE,sv;q=0.8,en-US;q=0.5,en;q=0.3
+Cookie: ShoppingCart=7JmywtnnIwgoIk91ZDuX9qvwH26ehbjReoWgYkkvxvHioStmBivLGuxJ+dlrZRkvJT76U6zkw287UV7ohZyFZQkCJZIbLQUKGfu2UuYmHAaenoioK6/QaNIDGiN8+2U8g0/RU1B7GnzmDAPmSdoI3g==; __RequestVerificationToken=Vppw2wu1UXiOHEXKi4oKgIZScyvAzG018aiq8D2dqihB8_Dha8OayiCiiKJlgRlLpfz2Dkmk-J1jnxQT4EhKkoenTNOnr2bcu--51GoUBC01
+Host: xms-mobile2:4465
+Referer: http://xms-mobile2:4465/Products/Shopping
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0
+
